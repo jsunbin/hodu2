@@ -1,0 +1,105 @@
+.login-layout {
+  padding: 100px 0;
+}
+
+.header {
+  text-align: center;
+}
+
+.logo {
+  display: inline-block;
+  width: 238px;
+}
+
+.login-form-wrap {
+  width: 550px;
+  min-height: 352px;
+  margin: 70px auto 30px;
+}
+
+/*로그인 옵션*/
+.option-ul {
+  width: 100%;
+  height: 80px;
+  margin-bottom: -20px;
+}
+.option-ul li {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+.option-buyer,
+.option-seller {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  background: #f2f2f2;
+  padding-top: 20px;
+  position: relative;
+}
+.option-buyer.on,
+.option-seller.on {
+  background: #ffffff;
+  z-index: 10;
+  border-bottom: none;
+}
+.option-buyer.on {
+  border-right: none;
+  border-bottom-left-radius: 0;
+}
+.option-seller.on {
+  border-left: none;
+  border-bottom-right-radius: 0;
+}
+
+.option-text {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+/*로그인 폼*/
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 550px;
+  min-height: 292px;
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+  border: 1px solid #c4c4c4;
+  padding: 35px;
+  margin: 0 auto;
+}
+
+.input,
+.label {
+  display: block;
+  width: 100%;
+}
+
+/* 회원가입, 비밀번호 찾기*/
+.more-ul {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0 0 315px;
+}
+
+.more-ul li {
+  display: inline-block;
+  line-height: 23px;
+}
+.more-ul li:not(:last-child)::after {
+  content: '|';
+  display: inline-block;
+  width: 5px;
+  margin: 0 14px;
+}

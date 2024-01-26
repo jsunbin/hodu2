@@ -1,0 +1,25 @@
+.button {
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  color: inherit;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0;
+}
+
+.mid-button {
+  width: 480px;
+  height: 60px;
+  line-height: 60px;
+  background: #21bf48;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+.mid-button:disabled {
+  background: #c4c4c4;
+  cursor: unset;
+}
