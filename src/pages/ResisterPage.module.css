@@ -1,0 +1,203 @@
+.resister-layout {
+  padding: 100px 0;
+}
+
+.header {
+  text-align: center;
+}
+
+.logo {
+  display: inline-block;
+  width: 238px;
+}
+
+.resister-form-wrap {
+  width: 550px;
+  min-height: 352px;
+  margin: 70px auto 30px;
+}
+
+/*로그인 옵션*/
+.option-ul {
+  width: 100%;
+  height: 80px;
+  margin-bottom: -20px;
+}
+.option-ul li {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+.option-buyer,
+.option-seller {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  background: #f2f2f2;
+  padding-top: 20px;
+  position: relative;
+}
+.option-buyer.on,
+.option-seller.on {
+  background: #ffffff;
+  border-bottom: none;
+  z-index: 10;
+}
+.option-buyer.on {
+  border-right: none;
+  border-bottom-left-radius: 0;
+}
+.option-seller.on {
+  border-left: none;
+  border-bottom-right-radius: 0;
+}
+
+.option-text {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+/*회원가입 폼*/
+.input,
+.label {
+  display: block;
+  width: 100%;
+}
+
+.resister-form {
+  display: flex;
+  width: 550px;
+  min-height: 292px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+}
+
+.form-section {
+  width: 100%;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 40px 35px;
+  margin: 0 auto;
+}
+
+.item {
+  margin-bottom: 12px;
+}
+
+.item.confirm,
+.item.filled {
+  position: relative;
+}
+.input.confirm {
+  width: 346px;
+}
+
+.item.confirm .button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.item .filled {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  background: url('../assets/icon-check-off.svg') center no-repeat;
+}
+
+.form-list:first-of-type {
+  margin-bottom: 50px;
+}
+
+/* 약관동의 */
+.agree-box {
+  width: 480px;
+  position: relative;
+  margin: 34px 0;
+}
+
+.agree-text {
+  padding-left: 26px;
+}
+
+.check-label a {
+  color: #767676;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+}
+
+/* checked */
+.agree-box input:checked + .check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-fill-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}
+
+/* input type: select*/
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* domain select */
+.domain,
+.domain-select {
+  width: 220px;
+}
+
+.domain-select {
+  height: 54px;
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
+  padding: 17px 16px;
+  -webkit-appearance: none;
+}
+
+button.domain-expand {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+  position: absolute;
+  top: 17px;
+  right: 10px;
+}

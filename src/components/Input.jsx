@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Input.module.css';
 
-function Input({ className = '', children, ...rest }) {
+function Input({ className = '', page = 'primary', children, ...rest }) {
   return (
-    <input className={`${styles.input} ${className}`} {...rest}>
+    <input className={`${styles.input} ${styles[page]} ${className}`} {...rest}>
       {children}
     </input>
   );

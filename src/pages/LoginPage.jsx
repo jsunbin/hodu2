@@ -41,6 +41,7 @@ function LoginPage() {
             name="id"
             type="text"
             placeholder="아이디"
+            page={'login'}
           />
 
           <Label className="a11y-hidden" htmlFor="password">
@@ -52,6 +53,7 @@ function LoginPage() {
             name="password"
             type="password"
             placeholder="비밀번호"
+            page={'login'}
           />
           <Button className={'button'} appearance={'mid-button'}>
             로그인
