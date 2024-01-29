@@ -83,23 +83,3 @@
   display: block;
   width: 100%;
 }
-
-/* 회원가입, 비밀번호 찾기*/
-.more-ul {
-  color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  text-align: center;
-  margin: 0 0 315px;
-}
-
-.more-ul li {
-  display: inline-block;
-  line-height: 23px;
-}
-.more-ul li:not(:last-child)::after {
-  content: '|';
-  display: inline-block;
-  width: 5px;
-  margin: 0 14px;
-}

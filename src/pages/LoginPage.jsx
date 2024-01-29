@@ -2,6 +2,7 @@ import React from 'react';
 import Label from '../components/Label.jsx';
 import Input from '../components/Input.jsx';
 import Button from '../components/Button.jsx';
+import { MoreList } from '../components/Footer';
 import LogoImg from '../assets/Logo-hodu.svg';
 import styles from './LoginPage.module.css';
 
@@ -62,14 +63,7 @@ function LoginPage() {
       </div>
 
       <div>
-        <ul className={styles['more-ul']}>
-          <li>
-            <a href="/#">회원가입</a>
-          </li>
-          <li>
-            <a href="/#">비밀번호 찾기</a>
-          </li>
-        </ul>
+        <MoreList />
       </div>
     </main>
   );
