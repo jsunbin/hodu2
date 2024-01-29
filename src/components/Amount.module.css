@@ -1,0 +1,43 @@
+.wrap {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 5px;
+  background: #ffffff;
+  position: relative;
+}
+
+.button {
+  width: 49px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c4c4c4;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+}
+.button.minus {
+  border-radius: 5px 0 0 5px;
+  left: 0;
+}
+.button.plus {
+  border-radius: 0 5px 5px 0;
+  right: 0;
+}
+.button:disabled {
+  background: #e0e0e0;
+}
+
+.amount {
+  width: 52px;
+  height: 100%;
+  display: inline-block;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+}

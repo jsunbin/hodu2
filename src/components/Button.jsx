@@ -3,6 +3,7 @@ import styles from './Button.module.css';
 
 function Button({
   className = '',
+  size = 'ms',
   appearance = 'primary',
   children,
   as: AsComponent,
@@ -14,7 +15,7 @@ function Button({
   if (AsComponent) {
     return (
       <AsComponent
-        className={`${styles.button} ${styles[appearance]} ${className}`}
+        className={`${styles.button} ${styles[size]} ${styles[appearance]} ${className}`}
         {...rest}
       >
         {children}
@@ -23,7 +24,7 @@ function Button({
   }
   return (
     <button
-      className={`${styles.button} ${styles[appearance]} ${className}`}
+      className={`${styles.button} ${styles[size]} ${styles[appearance]} ${className}`}
       {...rest}
     >
       {children}

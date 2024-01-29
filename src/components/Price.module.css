@@ -1,0 +1,26 @@
+.price {
+  color: #000000;
+  line-height: normal;
+  font-weight: 700;
+}
+.price.mid {
+  font-size: 24px;
+}
+.price.large {
+  font-size: 36px;
+}
+.price.secondary {
+  color: #21bf48;
+}
+
+.price:after {
+  content: '원';
+  color: #000000;
+  font-size: 0.6em;
+  font-weight: 400;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.price.secondary:after {
+  color: #21bf48;
+}

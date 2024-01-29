@@ -42,10 +42,7 @@ function ResisterPage() {
                   name="id"
                   type="text"
                 />
-                <Button
-                  className={`${styles.button} button`}
-                  appearance="ms-button"
-                >
+                <Button className={`${styles.button} button`} size="ms">
                   중복확인
                 </Button>
               </div>
@@ -153,7 +150,7 @@ function ResisterPage() {
               </label>
             </div>
 
-            <Button className="button" appearance="mid-button" disabled={true}>
+            <Button className="button" size="mid" disabled={true}>
               가입하기
             </Button>
           </div>

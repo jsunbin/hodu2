@@ -10,7 +10,7 @@
   margin: 0;
 }
 
-.ms-button {
+.ms.primary {
   width: 122px;
   height: 54px;
   line-height: 54px;
@@ -19,7 +19,7 @@
   font-size: 16px;
   font-weight: 500;
 }
-.mid-button {
+.mid {
   width: 480px;
   height: 60px;
   line-height: 60px;
@@ -28,7 +28,11 @@
   font-size: 18px;
   font-weight: 700;
 }
-.mid-button:disabled {
+.mid:disabled {
   background: #c4c4c4;
   cursor: unset;
+}
+
+.mid.dark {
+  background: #767676;
 }

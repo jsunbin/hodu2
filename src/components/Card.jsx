@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Card.module.css';
+import Price from './Price';
 function Card({ productId, title, price, image, seller }) {
   return (
     <article className={styles.card}>
@@ -10,10 +11,7 @@ function Card({ productId, title, price, image, seller }) {
         <div className={styles.info}>
           <span className={styles.seller}>{seller}</span>
           <h3 className={styles.title}>{title}</h3>
-
-          <div>
-            <span className={styles.price}>{price}</span>
-          </div>
+          <Price price={price} />
         </div>
       </a>
     </article>

@@ -56,7 +56,7 @@ function LoginPage() {
             placeholder="비밀번호"
             page={'login'}
           />
-          <Button className={'button'} appearance={'mid-button'}>
+          <Button className="button" size="mid">
             로그인
           </Button>
         </form>
