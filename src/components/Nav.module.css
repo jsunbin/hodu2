@@ -73,6 +73,11 @@
 .menu.cart {
   background: url('../assets/icon-shopping-cart.svg') top no-repeat;
 }
+.menu.cart.active {
+  color: #21bf48;
+  background: url('../assets/icon-shopping-cart-2.svg') top no-repeat;
+}
+.menu.user,
 .menu.user,
 .menu.login {
   background: url('../assets/icon-user.svg') top no-repeat;

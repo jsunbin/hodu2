@@ -6,6 +6,7 @@ import LogoImg from '../assets/Logo-hodu.svg';
 function Nav() {
   /** @TODO 서버에서 정보 가져오기 */
   const user = false;
+  const page = true;
 
   return (
     <header className={styles.container}>
@@ -49,16 +50,29 @@ function Nav() {
         <div className={styles['menu-list']}>
           {user ? (
             <>
-              <a href="/#" className={`${styles.menu} ${styles.cart}`}>
+              <a
+                href="/#"
+                className={`${styles.menu} ${styles.cart} ${
+                  page ? styles.active : ''
+                }`}
+              >
                 장바구니
               </a>
-              <a href="/#" className={`${styles.menu} ${styles.user}`}>
+              <a
+                href="/#"
+                className={`${styles.menu} ${styles.cart} ${
+                  page ? styles.active : ''
+                }`}
+              >
                 마이페이지
               </a>
             </>
           ) : (
             <>
-              <a href="/#" className={`${styles.menu} ${styles.cart}`}>
+              <a
+                href="/#"
+                className={`${styles.menu} ${styles.cart} ${styles.active}`}
+              >
                 장바구니
               </a>
               <a href="/#" className={`${styles.menu} ${styles.login}`}>

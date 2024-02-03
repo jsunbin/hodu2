@@ -1,0 +1,99 @@
+.cart-item {
+  width: 1280px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  background: #ffffff;
+  position: relative;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+}
+
+.check {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.check-box {
+  background: transparent;
+}
+.check-box svg {
+  vertical-align: middle;
+}
+
+.product img {
+  width: 164px;
+  height: 164px;
+  border-radius: 10px;
+  margin: 0 36px 0 10px;
+}
+
+/* 상품 정보 */
+.product-name {
+  font-weight: 400;
+  text-align: left;
+  margin-top: 6px;
+}
+.product-name .brand {
+  color: #767676;
+  font-size: 14px;
+}
+.product-name .title {
+  width: 418px;
+  color: #000000;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+.product-name .title:hover {
+  text-decoration: underline;
+}
+.product-name .price {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+}
+.product-name .delivery {
+  color: #767676;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 40px;
+}
+
+/* 수량 */
+.product-amount {
+  margin: 0 48px;
+}
+
+/* 상품 금액 */
+.product-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+  margin: 0 100px;
+}
+
+.product-total .price {
+  color: #eb5757;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* delete */
+.btn-delete {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+.btn-delete button {
+  background: transparent;
+}

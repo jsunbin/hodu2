@@ -1,0 +1,30 @@
+[
+  {
+    "my_cart": 2,
+    "cart_item_id": 2774,
+    "product_id": 564,
+    "quantity": 3,
+    "is_active": true
+  },
+  {
+    "my_cart": 2,
+    "cart_item_id": 2787,
+    "product_id": 565,
+    "quantity": 3,
+    "is_active": true
+  },
+  {
+    "my_cart": 2,
+    "cart_item_id": 2964,
+    "product_id": 583,
+    "quantity": 3,
+    "is_active": true
+  },
+  {
+    "my_cart": 2,
+    "cart_item_id": 3327,
+    "product_id": 581,
+    "quantity": 1,
+    "is_active": true
+  }
+]
