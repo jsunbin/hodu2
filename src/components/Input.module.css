@@ -8,6 +8,13 @@
   outline: none;
   box-sizing: border-box;
 }
+.input::placeholder {
+  color: #767676;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
 
 /* LoginPage */
 .input.login {
@@ -25,10 +32,29 @@
   padding: 17px 16px;
 }
 
-.input::placeholder {
-  color: #767676;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+/* order */
+.input.order {
+  width: 334px;
+}
+
+/* number */
+.input.number {
+  width: 90px;
+}
+.input.number {
+  margin-right: 10px;
+}
+.input.number:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+/* email */
+.input.email {
+  width: 140px;
+  margin-right: 10px;
+}
+
+/* long */
+.input.long {
+  width: 800px;
 }

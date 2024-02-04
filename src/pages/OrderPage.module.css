@@ -1,0 +1,190 @@
+/* layout */
+.layout {
+}
+
+.main {
+  padding-bottom: 160px;
+}
+
+.wrap {
+  max-width: 1280px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.title-page {
+  color: #000000;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+  margin: 54px 0 17px;
+}
+
+/* contents */
+.contents {
+}
+
+.table {
+  min-width: 1280px;
+  border-collapse: separate;
+  border-spacing: 0 16px;
+}
+.table th {
+  height: 60px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 60px;
+  background: #f2f2f2;
+}
+.table th:first-of-type {
+  border-radius: 10px 0 0 10px;
+}
+.table th:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+
+.products {
+}
+/* total-price */
+.total-price {
+  color: #000;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 30px;
+}
+.total-price strong {
+  color: #eb5757;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+/* 약관동의 */
+.agree-box {
+  /*width: 480px;*/
+  position: relative;
+  margin: 34px 0;
+}
+
+.agree-text {
+  padding-left: 26px;
+}
+
+.check-label a {
+  color: #767676;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+}
+
+/* checked */
+.agree-box input:checked + .check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-fill-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}
+
+/* 배송 정보 */
+.order-form {
+  width: 100%;
+  margin: 96px 0 70px;
+}
+.input {
+  height: 40px;
+  border: 1px solid #c4c4c4;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.sub-title,
+.sub-title2 {
+  text-align: left;
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
+}
+.sub-title {
+  margin: 40px auto 18px;
+}
+.sub-title2 {
+  font-size: 18px;
+  margin: 40px auto 8px;
+}
+.input-table {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  vertical-align: middle;
+}
+
+.input-table tbody {
+  display: table-row-group;
+}
+.input-table th {
+  display: table-cell;
+  width: 70px;
+  vertical-align: inherit;
+  background: #f4f4f4;
+  padding: 18px 0 18px 15px;
+  text-align: left;
+  color: #222222;
+  border-bottom: 1px solid #c4c4c4;
+  /*box-shadow: inset 0 0 10px red;*/
+}
+
+.input-table tr {
+  display: table-row;
+}
+.input-table .select {
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
+  outline: none;
+}
+.input-table .select:active {
+  border: 1px solid #21bf48;
+}
+
+.input-table td {
+  display: table-cell;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid #c4c4c4;
+}
+.input-table tr:first-of-type td,
+.input-table tr:first-of-type th {
+  border-top: 2px solid #c4c4c4;
+}
+
+.input-table .address-box {
+  margin: 8px 0;
+}
+
+.input-table .address .address-txt {
+  width: 800px;
+  height: 40px;
+  display: inline-block;
+  color: #000000;
+  font-size: 16px;
+  line-height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  padding: 0 10px;
+}
