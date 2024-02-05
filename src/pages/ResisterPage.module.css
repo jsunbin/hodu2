@@ -1,23 +1,10 @@
-.resister-layout {
-  padding: 100px 0;
-}
-
-.header {
-  text-align: center;
-}
-
-.logo {
-  display: inline-block;
-  width: 238px;
-}
-
-.resister-form-wrap {
+/* 회원가입 옵션 */
+.auth-form-wrap {
   width: 550px;
   min-height: 352px;
   margin: 70px auto 30px;
 }
 
-/*로그인 옵션*/
 .option-ul {
   width: 100%;
   height: 80px;
@@ -44,8 +31,8 @@
 .option-buyer.on,
 .option-seller.on {
   background: #ffffff;
-  border-bottom: none;
   z-index: 10;
+  border-bottom: none;
 }
 .option-buyer.on {
   border-right: none;
@@ -61,8 +48,9 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
+  position: relative;
+  top: -20px;
 }
-
 /*회원가입 폼*/
 .input,
 .label {

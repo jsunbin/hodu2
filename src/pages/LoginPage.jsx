@@ -1,37 +1,40 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Label from '../components/Label.jsx';
 import Input from '../components/Input.jsx';
 import Button from '../components/Button.jsx';
 import { MoreList } from '../components/Footer';
-import LogoImg from '../assets/Logo-hodu.svg';
 import styles from './LoginPage.module.css';
 
 function LoginPage() {
-  return (
-    <main className={styles['login-layout']}>
-      <h1 className={styles.header}>
-        <a className={styles.logo} href="/#">
-          <img src={LogoImg} alt="호두" />
-        </a>
-      </h1>
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get('type');
 
-      <div className={styles['login-form-wrap']}>
+  const handleTypeChange = (userType) => {
+    setSearchParams({ type: userType });
+  };
+
+  return (
+    <>
+      <div className={styles['auth-form-wrap']}>
         <ul className={styles['option-ul']} role="tablist">
           <li role="tab">
-            <a
-              href="/#none"
+            <button
               className={`${styles['option-buyer']} ${styles['on']}`}
+              onClick={() => handleTypeChange(`user`)}
             >
               <span className={styles['option-text']}>구매회원 로그인</span>
-            </a>
+            </button>
           </li>
           <li role="tab">
-            <a href="/#none" className={styles['option-seller']}>
+            <button
+              className={styles['option-seller']}
+              onClick={() => handleTypeChange(`seller`)}
+            >
               <span className={styles['option-text']}>판매회원 로그인</span>
-            </a>
+            </button>
           </li>
         </ul>
-
         <form className={styles['login-form']}>
           <Label className="a11y-hidden" htmlFor="id">
             아이디
@@ -61,11 +64,10 @@ function LoginPage() {
           </Button>
         </form>
       </div>
-
       <div>
         <MoreList />
       </div>
-    </main>
+    </>
   );
 }
 

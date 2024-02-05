@@ -1,0 +1,13 @@
+/* AuthLayout */
+.auth-layout {
+  padding: 100px 0;
+}
+
+.auth-layout .header {
+  text-align: center;
+}
+
+.auth-layout .logo {
+  display: inline-block;
+  width: 238px;
+}

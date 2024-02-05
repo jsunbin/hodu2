@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Footer.module.css';
 
 export function MoreList() {
-  const type = 'primary';
+  const type = 'login';
 
   const items = {
     primary: [
@@ -14,7 +14,7 @@ export function MoreList() {
       { title: '제휴문의', url: '/#' },
     ],
     login: [
-      { title: '회원가입', url: '/#' },
+      { title: '회원가입', url: '/register' },
       { title: '비밀번호 찾기', url: '/#' },
     ],
   };
