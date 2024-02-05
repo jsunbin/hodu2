@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Label from '../components/Label';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -145,8 +145,8 @@ function ResisterPage() {
             />
             <label htmlFor="agreeAll" className={styles['check-label']}>
               <p className={styles['agree-text']}>
-                호두샵의 <a href="/#">이용약관</a> 및{' '}
-                <a href="/#">개인정보처리방침</a>에 대한 내용을 확인하였고
+                호두샵의 <Link to="/#">이용약관</Link> 및{' '}
+                <Link to="/#">개인정보처리방침</Link>에 대한 내용을 확인하였고
                 동의합니다.
               </p>
             </label>

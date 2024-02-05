@@ -65,7 +65,7 @@ function LoginPage() {
         </form>
       </div>
       <div>
-        <MoreList />
+        <MoreList type="login" />
       </div>
     </>
   );

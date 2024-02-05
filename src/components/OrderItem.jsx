@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './OrderItem.module.css';
 import mock583 from '../data/product583Mock.json';
 
@@ -9,14 +10,14 @@ function OrderItem({ cartItemId, productId, quantity }) {
     <tr key={productId} className={styles['order-item']}>
       <td colSpan={2}>
         <div className={styles.product}>
-          <a href={`/#`}>
+          <Link to={`/#`}>
             <img src={item.image} alt="상품이미지" />
-          </a>
+          </Link>
           <div className={styles['product-info']}>
             <div className={styles.brand}>{item.store_name}</div>
-            <a href={`/#`}>
+            <Link to={`/#`}>
               <strong className={styles.title}>{item.product_name}</strong>
-            </a>
+            </Link>
             <div className={styles.amount}>수량: {quantity}개</div>
           </div>
         </div>

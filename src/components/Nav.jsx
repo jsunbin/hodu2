@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Label from './Label';
 import styles from './Nav.module.css';
 import LogoImg from '../assets/Logo-hodu.svg';
@@ -12,9 +13,9 @@ function Nav() {
     <header className={styles.container}>
       <nav className={styles.nav}>
         <div className={styles.start}>
-          <a href="/#">
+          <Link to="/#">
             <img className={styles.logo} src={LogoImg} alt="호두" />
-          </a>
+          </Link>
           <form className={styles.search}>
             <Label className="a11y-hidden" htmlFor="search">
               상품 검색
@@ -50,34 +51,34 @@ function Nav() {
         <div className={styles['menu-list']}>
           {user ? (
             <>
-              <a
-                href="/#"
+              <Link
+                to="cart"
                 className={`${styles.menu} ${styles.cart} ${
                   page ? styles.active : ''
                 }`}
               >
                 장바구니
-              </a>
-              <a
-                href="/#"
+              </Link>
+              <Link
+                to="/#"
                 className={`${styles.menu} ${styles.cart} ${
                   page ? styles.active : ''
                 }`}
               >
                 마이페이지
-              </a>
+              </Link>
             </>
           ) : (
             <>
-              <a
-                href="/#"
+              <Link
+                to="/cart"
                 className={`${styles.menu} ${styles.cart} ${styles.active}`}
               >
                 장바구니
-              </a>
-              <a href="/#" className={`${styles.menu} ${styles.login}`}>
+              </Link>
+              <Link to="/login" className={`${styles.menu} ${styles.login}`}>
                 로그인
-              </a>
+              </Link>
             </>
           )}
         </div>

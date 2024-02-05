@@ -11,3 +11,26 @@
   display: inline-block;
   width: 238px;
 }
+
+/* SlideLayout */
+.main {
+  padding-bottom: 160px;
+}
+
+/* WrapLayout */
+.main {
+  padding-bottom: 160px;
+}
+
+.wrap {
+  max-width: 1280px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* FullLayout */
+.full-main {
+  width: 100%;
+  margin: 80px auto;
+  position: relative;
+}

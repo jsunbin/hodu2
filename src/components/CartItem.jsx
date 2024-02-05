@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './CartItem.module.css';
 import Amount from './Amount';
 import Button from './Button';
@@ -53,9 +54,9 @@ function CartItem({ cartItemId, productId, quantity }) {
         </div>
 
         <div className={styles['product-img']}>
-          <a href="/#">
+          <Link to={`/goods/${productId}`}>
             <img src={item.image} alt={item.product_name} />
-          </a>
+          </Link>
         </div>
 
         <div className={styles['product-name']}>

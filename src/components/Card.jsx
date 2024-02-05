@@ -1,10 +1,15 @@
 import React from 'react';
 import styles from './Card.module.css';
 import Price from './Price';
+import { Link } from 'react-router-dom';
 function Card({ productId, title, price, image, seller }) {
   return (
     <article className={styles.card}>
-      <a href={`/#/${productId}`} className="product-link" rel="noreferrer">
+      <Link
+        to={`/goods/${productId}`}
+        className="product-link"
+        rel="noreferrer"
+      >
         <div className={styles.thumbnail}>
           <img src={image} alt={title} />
         </div>
@@ -13,7 +18,7 @@ function Card({ productId, title, price, image, seller }) {
           <h3 className={styles.title}>{title}</h3>
           <Price price={price} />
         </div>
-      </a>
+      </Link>
     </article>
   );
 }

@@ -1,9 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
-export function MoreList() {
-  const type = 'login';
-
+export function MoreList({ type = 'primary' }) {
   const items = {
     primary: [
       { title: '호두샵 소개', url: '/#' },
@@ -25,11 +24,11 @@ export function MoreList() {
         return (
           <li key={item.title}>
             {item.title === '개인정보처리방침' ? (
-              <a href="/#">
+              <Link to="/#">
                 <strong>{item.title}</strong>
-              </a>
+              </Link>
             ) : (
-              <a href={item.url}>{item.title}</a>
+              <Link to={item.url}>{item.title}</Link>
             )}
           </li>
         );
@@ -44,8 +43,8 @@ function Footer() {
         <div className={styles.more}>
           <MoreList />
           <div>
-            <a
-              href="https://www.instagram.com/weniv_official/"
+            <Link
+              to="https://www.instagram.com/weniv_official/"
               className={`${styles.sns} instagram`}
             >
               <svg
@@ -96,9 +95,9 @@ function Footer() {
                   </clipPath>
                 </defs>
               </svg>
-            </a>
-            <a
-              href="https://www.facebook.com/Jejucoding/"
+            </Link>
+            <Link
+              to="https://www.facebook.com/Jejucoding/"
               className={`${styles.sns} facebook`}
             >
               <svg
@@ -120,9 +119,9 @@ function Footer() {
                   fill="#F2F2F2"
                 />
               </svg>
-            </a>
-            <a
-              href="https://www.youtube.com/@jejucodingcamp"
+            </Link>
+            <Link
+              to="https://www.youtube.com/@jejucodingcamp"
               className={`${styles.sns} youtube`}
             >
               <svg
@@ -140,7 +139,7 @@ function Footer() {
                   fill="#F2F2F2"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
