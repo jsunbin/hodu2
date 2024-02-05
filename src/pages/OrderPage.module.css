@@ -60,45 +60,6 @@
   margin-left: 10px;
 }
 
-/* 약관동의 */
-.agree-box {
-  /*width: 480px;*/
-  position: relative;
-  margin: 34px 0;
-}
-
-.agree-text {
-  padding-left: 26px;
-}
-
-.check-label a {
-  color: #767676;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: underline;
-}
-.check-label:before {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  content: '';
-  background: url('../assets/check-box.svg') no-repeat center;
-  position: absolute;
-  left: 0;
-}
-
-/* checked */
-.agree-box input:checked + .check-label:before {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  content: '';
-  background: url('../assets/check-fill-box.svg') no-repeat center;
-  position: absolute;
-  left: 0;
-  z-index: 10;
-}
-
 /* 배송 정보 */
 .order-form {
   width: 100%;
@@ -188,3 +149,140 @@
   border-radius: 5px;
   padding: 0 10px;
 }
+
+/* ===== 결제 수단, 최종 결제 */
+.order-payment-box {
+  width: 100%;
+  margin-top: 30px;
+}
+/* ===== 결제수단 */
+.order-payment-box .left {
+  float: left;
+  width: 760px;
+}
+.pay-method {
+  text-align: left;
+  border-top: 2px solid #c4c4c4;
+  border-bottom: 2px solid #c4c4c4;
+  padding: 18px 0 18px 12px;
+}
+.pay-method li {
+  display: inline-block;
+}
+.pay-method li:not(:first-of-type) {
+  margin-left: 20px;
+}
+/* 결제수단 ===== */
+
+/* ====== 최종 결제정보 */
+.order-payment-box .right {
+  float: right;
+  width: 480px;
+}
+.total-payment-box {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  border: 2px solid #21bf48;
+  padding-top: 32px;
+}
+.total-order {
+  padding: 0 30px;
+}
+.total-order li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.total-order li .txt-title {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.total-order li .txt-cont {
+  color: #767676;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.total-order li .txt-cont .txt-num {
+  color: #000;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: 4px;
+}
+.total-order li.delivery {
+  margin-bottom: 16px;
+}
+.total-order li.total {
+  margin: 24px 0 20px;
+}
+.total-order li.total .txt-cont,
+.total-order li.total .txt-cont .txt-num {
+  color: #eb5757;
+  text-align: right;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.total-payment-box .pay {
+  min-height: 182px;
+  background: #f2f2f2;
+  border-radius: 0 0 10px 10px;
+  padding: 0 30px;
+}
+.total-payment-box .pay .agree-text {
+  text-align: left;
+}
+
+/* 약관동의 */
+.agree-box {
+  /*width: 480px;*/
+  position: relative;
+  margin: 30px 0;
+}
+
+.agree-text {
+  padding-left: 26px;
+}
+
+.check-label a {
+  color: #767676;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+}
+
+/* checked */
+.agree-box input:checked + .check-label:before {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  background: url('../assets/check-fill-box.svg') no-repeat center;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}
+/* 최종 결제정보 ===== */
+/* 결제 수단, 최종 결제 ===== */
