@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthProvider';
 import Label from './Label';
-import styles from './Nav.module.css';
 import LogoImg from '../assets/Logo-hodu.svg';
+import styles from './Nav.module.css';
 
 function Nav() {
   /** @TODO 서버에서 정보 가져오기 */
-  const user = false;
-  const page = true;
+  const { token } = useAuth();
+  const page = false;
 
   return (
     <header className={styles.container}>
@@ -49,7 +50,7 @@ function Nav() {
           </form>
         </div>
         <div className={styles['menu-list']}>
-          {user ? (
+          {token ? (
             <>
               <Link
                 to="cart"
@@ -61,7 +62,7 @@ function Nav() {
               </Link>
               <Link
                 to="/#"
-                className={`${styles.menu} ${styles.cart} ${
+                className={`${styles.menu} ${styles.user} ${
                   page ? styles.active : ''
                 }`}
               >

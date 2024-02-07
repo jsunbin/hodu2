@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthProvider';
 import {
   AuthLayout,
   FullLayout,
@@ -16,23 +17,24 @@ import './styles/reset.css';
 function App() {
   return (
     <BrowserRouter>
-      {/* provider */}
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<ResisterPage />} />
-        </Route>
-        <Route element={<SlideLayout />}>
-          <Route index element={<HomePage />} />
-        </Route>
-        <Route element={<FullLayout />}>
-          <Route path="/goods/:productId" element={<ProductDetailsPage />} />
-        </Route>
-        <Route element={<WrapLayout />}>
-          <Route path="cart" element={<CartPage />} />
-          <Route path="order" element={<OrderPage />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<ResisterPage />} />
+          </Route>
+          <Route element={<SlideLayout />}>
+            <Route index element={<HomePage />} />
+          </Route>
+          <Route element={<FullLayout />}>
+            <Route path="/goods/:productId" element={<ProductDetailsPage />} />
+          </Route>
+          <Route element={<WrapLayout />}>
+            <Route path="cart" element={<CartPage />} />
+            <Route path="order" element={<OrderPage />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
