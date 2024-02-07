@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Price from '../components/Price';
 import HorizontalRule from '../components/HorizontalRule';
@@ -9,6 +9,15 @@ import mock from '../data/productDetailsMock.json';
 
 function ProductDetailsPage() {
   const item = mock;
+  const [amount, setAmount] = useState(1);
+  const [price, setPrice] = useState(item.price);
+
+  useEffect(() => {
+    const { price } = item;
+    const nextPrice = price * amount;
+    setPrice(nextPrice);
+  }, [amount]);
+
   return (
     <>
       <section className={styles.info}>
@@ -27,16 +36,16 @@ function ProductDetailsPage() {
           </div>
           <HorizontalRule />
           <div className={styles.wrap}>
-            <Amount amount={1} />
+            <Amount amount={amount} setAmount={setAmount} max={item.stock} />
           </div>
           <HorizontalRule />
           <div className={styles.total}>
             <span className={styles.title}>총 상품 금액</span>
             <div className={styles.ordered}>
               <span className={styles.amount}>
-                총 수량 <strong>1</strong>개
+                총 수량 <strong>{amount}</strong>개
               </span>
-              <Price price={item.price} size="large" appearance="secondary" />
+              <Price price={price} size="large" appearance="secondary" />
             </div>
           </div>
 
