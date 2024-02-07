@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import Label from './Label';
 import LogoImg from '../assets/Logo-hodu.svg';
 import styles from './Nav.module.css';
 
 function Nav() {
-  /** @TODO 서버에서 정보 가져오기 */
   const { token } = useAuth();
-  const page = false;
+  const location = useLocation();
+
+  const cart = location.pathname === '/cart';
+  const user = false;
 
   return (
     <header className={styles.container}>
@@ -55,7 +57,7 @@ function Nav() {
               <Link
                 to="cart"
                 className={`${styles.menu} ${styles.cart} ${
-                  page ? styles.active : ''
+                  cart ? styles.active : ''
                 }`}
               >
                 장바구니
@@ -63,7 +65,7 @@ function Nav() {
               <Link
                 to="/#"
                 className={`${styles.menu} ${styles.user} ${
-                  page ? styles.active : ''
+                  user ? styles.active : ''
                 }`}
               >
                 마이페이지
@@ -73,7 +75,9 @@ function Nav() {
             <>
               <Link
                 to="/cart"
-                className={`${styles.menu} ${styles.cart} ${styles.active}`}
+                className={`${styles.menu} ${styles.cart} ${
+                  cart ? styles.active : ''
+                }`}
               >
                 장바구니
               </Link>
