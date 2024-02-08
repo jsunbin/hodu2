@@ -1,5 +1,6 @@
 import axios from '../lib/axios';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const AuthContext = createContext({
   user: null,
@@ -16,6 +17,7 @@ export function AuthProvider({ children }) {
     userType: null,
     isPending: true,
   });
+  const location = useLocation();
 
   const validateToken = () => {
     /** @TODO 로컬스토리지 저장
@@ -84,7 +86,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     validateToken();
-  }, []);
+  }, [location]);
 
   return (
     <AuthContext.Provider

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Amount.module.css';
 
-function Amount({ amount = 1, setAmount, max = 1 }) {
+function Amount({ amount = 1, setAmount = () => {}, max = 1 }) {
   const minusClickHandler = () => {
     if (amount > 1) {
       setAmount((prevAmount) => prevAmount - 1);

@@ -1,26 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthProvider';
+import axios from '../lib/axios';
 import Button from '../components/Button';
 import CartItem from '../components/CartItem';
 import styles from './CartPage.module.css';
 import mock2 from '../data/cartMock.json';
 
 function CartPage() {
-  const { count, results } = mock2;
-  console.log(results);
-  const [items, setItems] = useState(results);
+  // const { count, results } = mock2;
+  const [items, setItems] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { token } = useAuth();
+
+  const getCartItems = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get('/cart/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${token}`,
+        },
+      });
+      console.log(res);
+      const nextItems = res.data.results;
+      setItems(nextItems);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
-
     setIsChecked(!isChecked);
   };
+
+  useEffect(() => {
+    getCartItems();
+  }, []);
+
+  if (!token) {
+    return null;
+  }
 
   return (
     <>
       <h2 className={styles['title-page']}>장바구니</h2>
       <div>
-        {/*@TODO 장바구니에 담은 상품*/}
         <table className={styles.table}>
           <caption className="a11y-hidden">장바구니</caption>
           <thead>
@@ -72,7 +100,7 @@ function CartPage() {
               </th>
             </tr>
           </thead>
-          {count !== 0 ? (
+          {!isLoading && items.length !== 0 ? (
             <tbody className={styles.content}>
               {items.map((item) => (
                 <tr key={item.product_id}>
@@ -101,7 +129,7 @@ function CartPage() {
         </table>
       </div>
 
-      {count !== 0 ? (
+      {items.length !== 0 ? (
         <>
           <section className={styles['total-price-info']}>
             <div>
