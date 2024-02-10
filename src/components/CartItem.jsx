@@ -7,15 +7,15 @@ import styles from './CartItem.module.css';
 import mock581 from '../data/productDetailsMock.json';
 import mock583 from '../data/product583Mock.json';
 
-function CartItem({ cartItemId, productId, quantity }) {
-  console.log(cartItemId, productId, quantity);
+function CartItem({ cartItemId, productId, quantity, checked, handleCheck }) {
   // const item = productId === 271 ? mock581 : mock583;
   const [item, setItem] = useState({});
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(checked);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
+    handleCheck(productId, isChecked);
     setIsChecked(!isChecked);
   };
 
@@ -47,7 +47,7 @@ function CartItem({ cartItemId, productId, quantity }) {
                 title={`${item.product_name}을 결제상품으로 설정`}
                 type="checkbox"
                 className="a11y-hidden"
-                checked={isChecked}
+                checked={checked}
                 readOnly
               />
               <button
@@ -68,7 +68,7 @@ function CartItem({ cartItemId, productId, quantity }) {
                     stroke="#21BF48"
                     strokeWidth="2"
                   />
-                  {isChecked && <circle cx="10" cy="10" r="6" fill="#21BF48" />}
+                  {checked && <circle cx="10" cy="10" r="6" fill="#21BF48" />}
                 </svg>
               </button>
             </label>
