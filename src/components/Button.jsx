@@ -9,9 +9,6 @@ function Button({
   as: AsComponent,
   ...rest
 }) {
-  console.log(appearance);
-  console.log(className);
-  console.log(styles);
   if (AsComponent) {
     return (
       <AsComponent
