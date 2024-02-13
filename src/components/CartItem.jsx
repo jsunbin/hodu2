@@ -119,7 +119,7 @@ function CartItem({
           </div>
 
           <div className={styles['product-total']}>
-            <div className={styles.price}>17500원</div>
+            <div className={styles.price}>{quantity * item?.price}원</div>
             <Button size="sm">주문하기</Button>
           </div>
         </div>

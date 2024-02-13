@@ -91,9 +91,27 @@ function CartPage() {
     });
   };
 
+  const [total, setTotal] = useState({ product: 0, shippingFee: 0, toPay: 0 });
+
   useEffect(() => {
     console.log(checkItems);
     console.log(checkedItems);
+
+    const productTotal = checkedItems.reduce((acc, item) => {
+      return acc + item.amount * item.price;
+    }, 0);
+
+    const shippingFeeTotal = checkedItems.reduce((acc, item) => {
+      return acc + item.shippingFee;
+    }, 0);
+
+    const toPayTotal = productTotal + shippingFeeTotal;
+
+    setTotal({
+      product: productTotal,
+      shippingFee: shippingFeeTotal,
+      toPay: toPayTotal,
+    });
   }, [checkedItems]);
 
   useEffect(() => {
@@ -202,7 +220,7 @@ function CartPage() {
             <div>
               총 상품금액
               <span>
-                <strong>10000</strong>원
+                <strong>{total.product || 0}</strong>원
               </span>
             </div>
             <span className={`${styles.sign} ${styles.minus}`}></span>
@@ -216,13 +234,13 @@ function CartPage() {
             <div>
               배송비
               <span>
-                <strong>5000</strong>원
+                <strong>{total.shippingFee || 0}</strong>원
               </span>
             </div>
             <div className={styles['sum-price']}>
               결제 예정 금액
               <span>
-                <strong>15000</strong>원
+                <strong>{total.toPay || 0}</strong>원
               </span>
             </div>
           </section>
