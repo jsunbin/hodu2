@@ -10,6 +10,7 @@ function CartPage() {
   // const { count, results } = mock2;
   const [items, setItems] = useState([]);
   const [checkItems, setCheckItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
   const [isAllCheck, setIsAllCheck] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { token } = useAuth();
@@ -34,35 +35,66 @@ function CartPage() {
   };
 
   const handleAllCheck = (event) => {
-    console.log('-> isAllCheck', isAllCheck);
     event.preventDefault();
-    if (!isAllCheck) {
-      // false: true로 바꿀 거니깐 체크리스트 전부 추가
-      console.log(isAllCheck);
+
+    if (items.length !== 0 && checkedItems.length !== items.length) {
+      // 현재: 체크 안됨 -> 체크 V
       setCheckItems(items.map((item) => item.product_id));
+
+      setCheckedItems(
+        items.map((item) => ({
+          productId: item.product_id,
+          amount: item.quantity,
+          price: item?.price,
+          shippingFee: item?.shippingFee,
+        })),
+      );
     } else {
-      // true: false로 바꿀 거니깐, 체크리스트 초기화
+      // 현재: 체크 -> 체크 해제
       setCheckItems([]);
+      setCheckedItems([]);
     }
     setIsAllCheck(!isAllCheck);
   };
 
   // 개별 체크
-  const handleItemCheck = (id, isChecked) => {
-    console.log(id, isChecked);
-
+  const handleItemCheck = (item, isChecked) => {
+    const { productId, quantity, price, shippingFee } = item;
     if (!isChecked) {
-      console.log(isChecked);
-      setCheckItems((prev) => [...prev, id]);
+      // 현재: 체크 안됨 -> 체크 V
+      setCheckItems((prev) => [...prev, productId]);
+      setCheckedItems((prevState) => [
+        ...prevState,
+        {
+          productId: productId,
+          amount: quantity,
+          price: price,
+          shippingFee: shippingFee,
+        },
+      ]);
     } else {
-      console.log(isChecked);
-      setCheckItems(checkItems.filter((item) => item !== id));
+      setCheckItems(checkItems.filter((item) => item !== productId));
+      setCheckedItems(
+        checkedItems.filter((item) => item.productId !== productId),
+      );
     }
+  };
+
+  const updateCheckedItemsById = (productId, newPrice, newShippingFee) => {
+    setCheckedItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item.productId === productId) {
+          return { ...item, price: newPrice, shippingFee: newShippingFee };
+        }
+        return item;
+      });
+    });
   };
 
   useEffect(() => {
     console.log(checkItems);
-  }, [checkItems]);
+    console.log(checkedItems);
+  }, [checkedItems]);
 
   useEffect(() => {
     getCartItems();
@@ -88,7 +120,7 @@ function CartPage() {
                         title="전체 상품을 결제상품으로 설정"
                         type="checkbox"
                         className="a11y-hidden"
-                        checked={checkItems.length === items.length}
+                        checked={checkedItems.length === items.length}
                         readOnly
                       />
                       <button
@@ -109,7 +141,7 @@ function CartPage() {
                             stroke="#21BF48"
                             strokeWidth="2"
                           />
-                          {checkItems.length === items.length && (
+                          {checkedItems.length === items.length && (
                             <circle cx="10" cy="10" r="6" fill="#21BF48" />
                           )}
                         </svg>
@@ -137,8 +169,12 @@ function CartPage() {
                         cartItemId={item['cart_item_id']}
                         productId={item.product_id}
                         quantity={item.quantity}
-                        checked={checkItems.includes(item.product_id)}
+                        checked={checkedItems.some(
+                          (el) => el.productId === item.product_id,
+                        )}
+                        allChecked={checkedItems.length === items.length}
                         handleCheck={handleItemCheck}
+                        handleChange={updateCheckedItemsById}
                       />
                     </td>
                   </tr>

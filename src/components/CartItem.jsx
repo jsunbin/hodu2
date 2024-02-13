@@ -7,15 +7,32 @@ import styles from './CartItem.module.css';
 import mock581 from '../data/productDetailsMock.json';
 import mock583 from '../data/product583Mock.json';
 
-function CartItem({ cartItemId, productId, quantity, checked, handleCheck }) {
+function CartItem({
+  cartItemId,
+  productId,
+  quantity,
+  checked,
+  allChecked,
+  handleCheck,
+  handleChange,
+}) {
   // const item = productId === 271 ? mock581 : mock583;
+  console.log('카트아이템', checked);
   const [item, setItem] = useState({});
   const [isChecked, setIsChecked] = useState(checked);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
-    handleCheck(productId, isChecked);
+    handleCheck(
+      {
+        productId,
+        quantity,
+        price: item?.price,
+        shippingFee: item?.shipping_fee,
+      },
+      checked,
+    );
     setIsChecked(!isChecked);
   };
 
@@ -36,6 +53,13 @@ function CartItem({ cartItemId, productId, quantity, checked, handleCheck }) {
   useEffect(() => {
     getItem();
   }, []);
+
+  useEffect(() => {
+    // 체크 되어 잇을 때만!
+    if (checked) {
+      handleChange(productId, item?.price, item?.shipping_fee);
+    }
+  }, [allChecked, checked]);
 
   return (
     !isLoading && (
