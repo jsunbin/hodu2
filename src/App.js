@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthProvider';
+import Container from './components/Container';
 import {
   AuthLayout,
   FullLayout,
@@ -17,7 +17,7 @@ import './styles/reset.css';
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
+      <Container>
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />
@@ -34,7 +34,7 @@ function App() {
             <Route path="order" element={<OrderPage />} />
           </Route>
         </Routes>
-      </AuthProvider>
+      </Container>
     </BrowserRouter>
   );
 }

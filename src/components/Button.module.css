@@ -14,13 +14,27 @@
   background: #c4c4c4;
   cursor: unset;
 }
-
-.sm.primary {
-  width: 130px;
+.sm {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
+}
+.sm.primary {
+  width: 130px;
   font-weight: 500;
+}
+.sm.extra,
+.sm.white {
+  width: 100px;
+  font-weight: 400;
+}
+.sm.white {
+  font-size: 16px;
+  color: #767676;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
 }
 
 .ms.primary {
