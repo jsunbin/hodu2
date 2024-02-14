@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useModal } from '../contexts/ModalProvider';
 import axios from '../lib/axios';
 import Amount from './Amount';
 import Button from './Button';
@@ -13,14 +14,15 @@ function CartItem({
   quantity,
   checked,
   allChecked,
+  handleDelete,
   handleCheck,
   handleChange,
 }) {
   // const item = productId === 271 ? mock581 : mock583;
-  console.log('카트아이템', checked);
   const [item, setItem] = useState({});
   const [isChecked, setIsChecked] = useState(checked);
   const [isLoading, setIsLoading] = useState(false);
+  const { modal } = useModal();
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
@@ -34,6 +36,19 @@ function CartItem({
       checked,
     );
     setIsChecked(!isChecked);
+  };
+
+  const handleDeleteClick = (event) => {
+    event.preventDefault();
+    modal({
+      isOpen: true,
+      message: '상품을 삭제하시겠습니까?',
+      btnTxt: {
+        no: '취소',
+        yes: '확인',
+      },
+      onClick: () => handleDelete(productId, cartItemId),
+    });
   };
 
   const getItem = async () => {
@@ -124,7 +139,7 @@ function CartItem({
           </div>
         </div>
         <div className={styles['btn-delete']}>
-          <button type="button">
+          <button type="button" onClick={handleDeleteClick}>
             <svg
               width="22"
               height="22"

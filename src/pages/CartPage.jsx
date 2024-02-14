@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
+import { useModal } from '../contexts/ModalProvider';
 import axios from '../lib/axios';
 import Button from '../components/Button';
 import CartItem from '../components/CartItem';
@@ -14,6 +15,7 @@ function CartPage() {
   const [isAllCheck, setIsAllCheck] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { token } = useAuth();
+  const { modal } = useModal();
 
   const getCartItems = async () => {
     try {
@@ -89,6 +91,32 @@ function CartPage() {
         return item;
       });
     });
+  };
+
+  // 상품 삭제
+  const handleDeleteItemClick = (productId, cartItemId) => {
+    deleteCartItem(cartItemId).then(modal({ isOpen: false }));
+    setItems((prevItem) =>
+      prevItem.filter((v) => v['product_id'] !== productId),
+    );
+    setCheckItems((prevItem) => [...prevItem.filter((v) => v !== productId)]);
+    setCheckedItems((prevItem) => [
+      ...prevItem.filter((v) => v.productId !== productId),
+    ]);
+  };
+
+  const deleteCartItem = async (cartItemId) => {
+    try {
+      const res = await axios.delete(`/cart/${cartItemId}/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${token}`,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const [total, setTotal] = useState({ product: 0, shippingFee: 0, toPay: 0 });
@@ -191,6 +219,7 @@ function CartPage() {
                           (el) => el.productId === item.product_id,
                         )}
                         allChecked={checkedItems.length === items.length}
+                        handleDelete={handleDeleteItemClick}
                         handleCheck={handleItemCheck}
                         handleChange={updateCheckedItemsById}
                       />
