@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthProvider';
+import { useModal } from '../contexts/ModalProvider';
 import axios from '../lib/axios';
 import Button from '../components/Button';
 import Price from '../components/Price';
@@ -7,14 +9,50 @@ import HorizontalRule from '../components/HorizontalRule';
 import Amount from '../components/Amount';
 import TabMenu from '../components/TabMenu';
 import styles from './ProductDetailsPage.module.css';
-import mock from '../data/productDetailsMock.json';
 
 function ProductDetailsPage() {
   const [item, setItem] = useState({});
   const [amount, setAmount] = useState(1);
   const [price, setPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const { productId } = useParams();
+  const { token } = useAuth();
+  const { modal } = useModal();
+
+  const handleCartClick = async () => {
+    const res = await getCartList();
+    const { results } = res;
+
+    if (!results) return;
+
+    const isItemsInResults = results.find(
+      (v) => v.product_id === Number(productId),
+    );
+
+    if (isItemsInResults) {
+      modal({
+        isOpen: true,
+        message: (
+          <span>
+            이미 장바구니에 있는 상품입니다. <br />
+            장바구니로 이동하시겠습니까?
+          </span>
+        ),
+        btnTxt: { no: '아니오', yes: '예' },
+        onClick: () => {
+          navigate('/cart');
+        },
+      });
+    } else {
+      await addItemToCart();
+      modal({
+        type: 'confirm',
+        isOpen: true,
+        message: '장바구니에 상품이 담겼습니다',
+      });
+    }
+  };
 
   const getItem = async () => {
     try {
@@ -24,6 +62,37 @@ function ProductDetailsPage() {
 
       setItem(nextItem);
       setPrice(nextItem.price);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getCartList = async () => {
+    const res = await axios.get('/cart/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${token}`,
+      },
+    });
+
+    return res.data;
+  };
+
+  const addItemToCart = async (check) => {
+    try {
+      setIsLoading(true);
+      const res = await axios.post(
+        '/cart/',
+        { product_id: productId, quantity: amount, check: check },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
     } catch (error) {
       console.error(error);
     } finally {
@@ -85,6 +154,7 @@ function ProductDetailsPage() {
                 className="button"
                 size="mid"
                 appearance="dark"
+                onClick={handleCartClick}
                 style={{ width: 200 + 'px' }}
               >
                 장바구니

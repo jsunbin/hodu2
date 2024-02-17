@@ -5,7 +5,49 @@ import styles from './ModalProvider.module.css';
 
 const ModalContext = createContext(undefined);
 
-function Modal({ type, message, btnTxt, closeModal, onClick }) {
+function ConfirmModal({ message, closeModal }) {
+  return (
+    <div className={styles['modal-wrapper']}>
+      <article className={styles.modal}>
+        <p className={styles['modal-txt']}>{message}</p>
+        <div className={styles['btn-group']}>
+          <Button
+            size="sm"
+            appearance="extra"
+            className={styles.button}
+            onClick={closeModal}
+          >
+            확인
+          </Button>
+          <button type="button" className={styles.close} onClick={closeModal}>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.14258 18.2842L18.2847 4.14204"
+                stroke="#C4C4C4"
+                strokeWidth="2"
+              />
+              <path
+                d="M18.1426 18.1421L4.00044 3.99996"
+                stroke="#C4C4C4"
+                strokeWidth="2"
+              />
+            </svg>
+
+            <span className="a11y-hidden">닫기</span>
+          </button>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function Modal({ message, btnTxt, closeModal, onClick }) {
   const { no, yes } = btnTxt;
   return (
     <div className={styles['modal-wrapper']}>
@@ -59,6 +101,7 @@ function Modal({ type, message, btnTxt, closeModal, onClick }) {
 
 export function ModalProvider({ children }) {
   const [values, setValues] = useState({
+    type: 'primary',
     isOpen: true,
     message: '',
     btnTxt: {},
@@ -66,8 +109,9 @@ export function ModalProvider({ children }) {
   });
   const location = useLocation();
 
-  const openModal = (message, btnTxt, onClick) => {
+  const openModal = (type, message, btnTxt, onClick) => {
     setValues({
+      type: type,
       isOpen: true,
       message: message,
       btnTxt,
@@ -84,9 +128,9 @@ export function ModalProvider({ children }) {
     });
   };
 
-  function modal({ isOpen, message, btnTxt, onClick }) {
+  function modal({ isOpen, type, message, btnTxt, onClick }) {
     if (isOpen) {
-      openModal(message, btnTxt, onClick);
+      openModal(type, message, btnTxt, onClick);
     } else {
       closeModal();
     }
@@ -104,14 +148,17 @@ export function ModalProvider({ children }) {
   return (
     <ModalContext.Provider value={{ modal }}>
       {children}
-      {values.isOpen && (
-        <Modal
-          message={values.message}
-          btnTxt={values.btnTxt}
-          closeModal={closeModal}
-          onClick={values.onClick}
-        />
-      )}
+      {values.isOpen &&
+        (values.type === 'confirm' ? (
+          <ConfirmModal message={values.message} closeModal={closeModal} />
+        ) : (
+          <Modal
+            message={values.message}
+            btnTxt={values.btnTxt}
+            closeModal={closeModal}
+            onClick={values.onClick}
+          />
+        ))}
     </ModalContext.Provider>
   );
 }
