@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { useModal } from '../contexts/ModalProvider';
+import { useOrder } from '../contexts/OrderItemProvider';
 import axios from '../lib/axios';
 import Button from '../components/Button';
 import CartItem from '../components/CartItem';
@@ -14,8 +16,18 @@ function CartPage() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [isAllCheck, setIsAllCheck] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const { token } = useAuth();
   const { modal } = useModal();
+  const { setOrderItems } = useOrder();
+
+  const handleOrderClick = async (event) => {
+    event.preventDefault();
+    setOrderItems(checkedItems);
+
+    const query = `type=cart`;
+    navigate(`/order?${query}`);
+  };
 
   const getCartItems = async () => {
     try {
@@ -273,7 +285,9 @@ function CartPage() {
               </span>
             </div>
           </section>
-          <Button size="large">주문하기</Button>
+          <Button size="large" onClick={handleOrderClick}>
+            주문하기
+          </Button>
         </>
       ) : (
         <></>

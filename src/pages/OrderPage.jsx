@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useOrder } from '../contexts/OrderItemProvider';
 import OrderItem from '../components/OrderItem';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -7,7 +9,17 @@ import styles from './OrderPage.module.css';
 import mock from '../data/cartItemListMock.json';
 
 function OrderPage() {
-  const items = mock;
+  // const items = mock;
+  const { orders, totalPrice } = useOrder();
+  const [items, setItems] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get('type');
+
+  useEffect(() => {
+    setItems(orders || []);
+    console.log(orders);
+  }, [orders]);
+
   return (
     <>
       <h2 className={styles['title-page']}>주문/결제하기</h2>
@@ -24,20 +36,22 @@ function OrderPage() {
               <th scope="col">주문금액</th>
             </tr>
           </thead>
-          <tbody className={styles.products}>
-            {items.map((item) => (
-              <OrderItem
-                cartItemId={item['cart_item_id']}
-                productId={item.product_id}
-                quantity={item.quantity}
-              />
-            ))}
-          </tbody>
+          {items && items.length !== 0 && (
+            <tbody className={styles.products}>
+              {items.map((item) => (
+                <OrderItem
+                  cartItemId={item['cart_item_id']}
+                  productId={item.productId}
+                  quantity={item.amount}
+                />
+              ))}
+            </tbody>
+          )}
         </table>
 
         <div className={styles['total-price']}>
           총 주문금액
-          <strong>20000원</strong>
+          <strong>{totalPrice}원</strong>
         </div>
 
         <form className={styles['order-form']}>

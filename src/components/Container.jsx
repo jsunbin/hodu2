@@ -1,11 +1,14 @@
 import React from 'react';
 import { ModalProvider } from '../contexts/ModalProvider';
 import { AuthProvider } from '../contexts/AuthProvider';
+import { OrderItemProvider } from '../contexts/OrderItemProvider';
 
 function Providers({ children }) {
   return (
     <ModalProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <OrderItemProvider>{children}</OrderItemProvider>
+      </AuthProvider>
     </ModalProvider>
   );
 }

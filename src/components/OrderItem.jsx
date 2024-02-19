@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from '../lib/axios';
 import styles from './OrderItem.module.css';
 import mock583 from '../data/product583Mock.json';
 
 function OrderItem({ cartItemId, productId, quantity }) {
-  const item = mock583;
+  console.log(productId);
+  // const item = mock583;
+  const [item, setItem] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getItem = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get(`/products/${productId}/`);
+      const nextItem = res.data;
+
+      console.log(res);
+
+      setItem(nextItem);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getItem();
+  }, []);
 
   return (
     <tr key={productId} className={styles['order-item']}>
@@ -26,10 +50,12 @@ function OrderItem({ cartItemId, productId, quantity }) {
         <div>-</div>
       </td>
       <td>
-        <div>2500</div>
+        <div>{item.shipping_fee}</div>
       </td>
       <td>
-        <div className={styles['total-price']}>10000원</div>
+        <div className={styles['total-price']}>
+          {item.price * quantity + item.shipping_fee}원
+        </div>
       </td>
     </tr>
   );
