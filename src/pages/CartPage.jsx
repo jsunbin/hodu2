@@ -14,6 +14,7 @@ function CartPage() {
   const [items, setItems] = useState([]);
   const [checkItems, setCheckItems] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [total, setTotal] = useState({ product: 0, shippingFee: 0, toPay: 0 });
   const [isAllCheck, setIsAllCheck] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -130,8 +131,6 @@ function CartPage() {
       console.error(error);
     }
   };
-
-  const [total, setTotal] = useState({ product: 0, shippingFee: 0, toPay: 0 });
 
   useEffect(() => {
     console.log(checkItems);
