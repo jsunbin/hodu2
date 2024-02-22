@@ -1,0 +1,20 @@
+.input {
+  height: 40px;
+  border: 1px solid #c4c4c4;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.select {
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
+  outline: none;
+  padding: 0 10px;
+  margin-left: 10px;
+}
+.select:active {
+  border: 1px solid #21bf48;
+}

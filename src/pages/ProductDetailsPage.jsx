@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { useModal } from '../contexts/ModalProvider';
+import { useOrder } from '../contexts/OrderItemProvider';
 import axios from '../lib/axios';
 import Button from '../components/Button';
 import Price from '../components/Price';
@@ -19,6 +20,20 @@ function ProductDetailsPage() {
   const { productId } = useParams();
   const { token } = useAuth();
   const { modal } = useModal();
+  const { setOrderItems } = useOrder();
+
+  const handleOrderNowClick = () => {
+    setOrderItems([
+      {
+        productId,
+        amount,
+        price: item?.price,
+        shippingFee: item.shipping_fee === 0 ? '무료배송' : item.shipping_fee,
+      },
+    ]);
+    const query = `type=direct&product=${productId}`;
+    navigate(`/order?${query}`);
+  };
 
   const handleCartClick = async () => {
     const res = await getCartList();
@@ -146,6 +161,7 @@ function ProductDetailsPage() {
               <Button
                 className="button"
                 size="mid"
+                onClick={handleOrderNowClick}
                 style={{ width: 416 + 'px' }}
               >
                 바로구매

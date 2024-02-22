@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useOrder } from '../contexts/OrderItemProvider';
+import Mail from '../components/Mail';
 import OrderItem from '../components/OrderItem';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -8,17 +9,77 @@ import HorizontalRule from '../components/HorizontalRule';
 import styles from './OrderPage.module.css';
 import mock from '../data/cartItemListMock.json';
 
+const INITIAL_VALUES = {
+  product_id: 0,
+  quantity: 0,
+  order_kind: 'direct_order',
+  receiver: '',
+  receiver_phone_number: '',
+  address: '',
+  address_message: '',
+  payment_method: '',
+  total_price: 0,
+};
+
 function OrderPage() {
   // const items = mock;
   const { orders, totalPrice } = useOrder();
   const [items, setItems] = useState([]);
+  const [values, setValues] = useState(INITIAL_VALUES);
+  const [phone, setPhone] = useState(['', '', '']);
+  const [address, setAddress] = useState({
+    postal: '',
+    address1: '',
+    address2: '',
+  });
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type');
 
+  const handleChangeValues = (name, value) => {
+    setValues((prevValues) => ({ ...prevValues, [name]: value }));
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    handleChangeValues(name, value);
+  };
+
+  const handleChangePhoneNumber = (event) => {
+    const { name, value } = event.target;
+
+    const nextPhone = [...phone];
+
+    if (name === 'phone1') {
+      nextPhone[0] = value;
+    } else if (name === 'phone2') {
+      nextPhone[1] = value;
+    } else if (name === 'phone3') {
+      nextPhone[2] = value;
+    }
+
+    setPhone(nextPhone);
+    handleChangeValues('receiver_phone_number', nextPhone.join(''));
+  };
+
+  const handlePostal = (event) => {
+    event.preventDefault();
+  };
+
+  const handleChangeAddress = (event) => {
+    const { name, value } = event.target;
+
+    setAddress((prev) => ({ ...prev, [name]: value }));
+    handleChangeValues('address', `${address.address1}, ${address.address2}`);
+  };
+
   useEffect(() => {
     setItems(orders || []);
-    console.log(orders);
   }, [orders]);
+
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
 
   return (
     <>
@@ -80,35 +141,7 @@ function OrderPage() {
               <tr>
                 <th scope="row">이메일</th>
                 <td>
-                  <Input
-                    type="hidden"
-                    id="ordManEmailAddr"
-                    name="ordManEmailAddr"
-                    title="주문자 이메일 주소를 입력해주세요."
-                  />
-                  <Input
-                    appearance="email"
-                    type="text"
-                    id="ordManEmailAddrId"
-                    className={styles.input}
-                    title="주문자 이메일 주소를 입력해주세요."
-                  />
-                  @{' '}
-                  <select
-                    id="ordManEmailAddrDmn_select"
-                    className={styles.select}
-                    title="주문자 이메일 주소 도메인을 선택해주세요."
-                  >
-                    <option value="">직접 입력하기</option>
-                    <option value="naver.com" selected="selected">
-                      naver.com
-                    </option>
-                    <option value="hanmail.net">hanmail.net</option>
-                    <option value="nate.com">nate.com</option>
-                    <option value="yahoo.co.kr">yahoo.co.kr</option>
-                    <option value="gmail.com">gmail.com</option>
-                    <option value="hotmail.com">hotmail.com</option>
-                  </select>
+                  <Mail onChange={handleChangeValues} />
                 </td>
               </tr>
             </tbody>
@@ -119,24 +152,61 @@ function OrderPage() {
               <tr>
                 <th scope="row">수령인</th>
                 <td>
-                  <Input className={styles.input} appearance="order" />
+                  <Input
+                    className={styles.input}
+                    id="receiver"
+                    name="receiver"
+                    value={values.name}
+                    onChange={handleChange}
+                    appearance="order"
+                  />
                 </td>
               </tr>
               <tr>
                 <th scope="row">휴대폰</th>
                 <td>
-                  <Input className={styles.input} appearance="number" />
+                  <Input
+                    className={styles.input}
+                    id="phone1"
+                    name="phone1"
+                    maxLength={3}
+                    onChange={handleChangePhoneNumber}
+                    appearance="number"
+                  />
                   -
-                  <Input className={styles.input} appearance="number" />
+                  <Input
+                    className={styles.input}
+                    id="phone2"
+                    name="phone2"
+                    maxLength={4}
+                    onChange={handleChangePhoneNumber}
+                    appearance="number"
+                  />
                   -
-                  <Input className={styles.input} appearance="number" />
+                  <Input
+                    className={styles.input}
+                    id="phone3"
+                    name="phone3"
+                    maxLength={4}
+                    onChange={handleChangePhoneNumber}
+                    appearance="number"
+                  />
                 </td>
               </tr>
               <tr>
                 <th scope="row">배송주소</th>
                 <td className={styles.address}>
-                  <Input className={styles.input} appearance="email" />
-                  <Button size="sm">우편번호 조회</Button>
+                  <Input
+                    className={styles.input}
+                    id="postal"
+                    name="postal"
+                    value={address.postal}
+                    onClick={handleChangeAddress}
+                    appearance="number"
+                  />
+                  <Button size="sm" onClick={handlePostal}>
+                    우편번호 조회
+                  </Button>
                   <div className={styles['address-box']}>
                     <Input
                       className={styles.input}
@@ -144,15 +214,32 @@ function OrderPage() {
                       type="hidden"
                       readOnly
                     />
-                    <p className={styles['address-txt']}>서울특별시</p>
+                    <Input
+                      className={styles['address-txt']}
+                      name="address1"
+                      value={address.address1}
+                      onChange={handleChangeAddress}
+                      appearance="long"
+                    />
                   </div>
-                  <Input className={styles.input} appearance="long" />
+                  <Input
+                    className={styles.input}
+                    name="address2"
+                    value={address.address2}
+                    onChange={handleChangeAddress}
+                    appearance="long"
+                  />
                 </td>
               </tr>
               <tr>
                 <th scope="row">배송메시지</th>
                 <td>
-                  <Input className={styles.input} appearance="long" />
+                  <Input
+                    className={styles.input}
+                    name="address_message"
+                    onChange={handleChange}
+                    appearance="long"
+                  />
                 </td>
               </tr>
             </tbody>

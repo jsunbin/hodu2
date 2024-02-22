@@ -130,7 +130,7 @@ function CartItem({
           </div>
 
           <div className={styles['product-amount']}>
-            <Amount amount={quantity} />
+            <Amount amount={quantity} max={item.stock} />
           </div>
 
           <div className={styles['product-total']}>

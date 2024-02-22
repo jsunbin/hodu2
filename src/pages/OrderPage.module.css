@@ -97,16 +97,6 @@
 .input-table tr {
   display: table-row;
 }
-.input-table .select {
-  width: 140px;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #c4c4c4;
-  outline: none;
-}
-.input-table .select:active {
-  border: 1px solid #21bf48;
-}
 
 .input-table td {
   display: table-cell;
