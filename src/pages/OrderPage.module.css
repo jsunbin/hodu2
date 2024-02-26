@@ -149,6 +149,10 @@
 .pay-method li:not(:first-of-type) {
   margin-left: 20px;
 }
+.pay-method li label {
+  cursor: pointer;
+}
+
 /* 결제수단 ===== */
 
 /* ====== 최종 결제정보 */

@@ -73,6 +73,11 @@ function OrderPage() {
     handleChangeValues('address', `${address.address1}, ${address.address2}`);
   };
 
+  const handleChangePayMethod = (event) => {
+    const { value } = event.target;
+    handleChangeValues('payment_method', value);
+  };
+
   useEffect(() => {
     setItems(orders || []);
   }, [orders]);
@@ -248,51 +253,64 @@ function OrderPage() {
           <div className={styles['order-payment-box']}>
             <div className={styles.left}>
               <h3 className={styles['sub-title']}>결제수단</h3>
-              <ul className={styles['pay-method']}>
+              <ul
+                className={styles['pay-method']}
+                onChange={handleChangePayMethod}
+              >
                 <li>
-                  <input
-                    type="radio"
-                    id="payMethodCard"
-                    value="CARD"
-                    name="select-pay-method"
-                  />
-                  <label htmlFor="payMethodCard">신용/체크카드</label>
+                  <label htmlFor="payMethodCard">
+                    <input
+                      type="radio"
+                      id="payMethodCard"
+                      value="CARD"
+                      name="select-pay-method"
+                    />
+                    신용/체크카드
+                  </label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    id="payMethodBank"
-                    value="DEPOSIT"
-                    name="select-pay-method"
-                  />
-                  <label htmlFor="payMethodBank">무통장 입금</label>
+                  <label htmlFor="payMethodBank">
+                    <input
+                      type="radio"
+                      id="payMethodBank"
+                      value="DEPOSIT"
+                      name="select-pay-method"
+                    />
+                    무통장 입금
+                  </label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    id="payMethodPhone"
-                    value="PHONE_PAYMENT"
-                    name="select-pay-method"
-                  />
-                  <label htmlFor="payMethodPhone">휴대폰 결제</label>
+                  <label htmlFor="payMethodPhone">
+                    <input
+                      type="radio"
+                      id="payMethodPhone"
+                      value="PHONE_PAYMENT"
+                      name="select-pay-method"
+                    />
+                    휴대폰 결제
+                  </label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    id="payMethodNaverPay"
-                    value="NAVERPAY"
-                    name="select-pay-method"
-                  />
-                  <label htmlFor="payMethodNaverPay">네이버페이</label>
+                  <label htmlFor="payMethodNaverPay">
+                    <input
+                      type="radio"
+                      id="payMethodNaverPay"
+                      value="NAVERPAY"
+                      name="select-pay-method"
+                    />
+                    네이버페이
+                  </label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    id="payMethodKakaoPay"
-                    value="KAKAOPAY"
-                    name="select-pay-method"
-                  />
-                  <label htmlFor="payMethodKakaoPay">카카오페이</label>
+                  <label htmlFor="payMethodKakaoPay">
+                    <input
+                      type="radio"
+                      id="payMethodKakaoPay"
+                      value="KAKAOPAY"
+                      name="select-pay-method"
+                    />
+                    카카오페이
+                  </label>
                 </li>
               </ul>
             </div>
