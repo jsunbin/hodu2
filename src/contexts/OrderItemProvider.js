@@ -3,39 +3,55 @@ import { useLocation } from 'react-router-dom';
 
 const OrderContext = createContext({
   orders: [],
+  totalItemPrice: 0,
+  totalShippingFee: 0,
   totalPrice: 0,
   setOrderItems: (nextItems) => {},
 });
 
 export function OrderItemProvider({ children }) {
-  const [values, setValues] = useState({ orders: [], totalPrice: 0 });
+  const [values, setValues] = useState({
+    orders: [],
+    totalItemPrice: 0,
+    totalShippingFee: 0,
+    totalPrice: 0,
+  });
   const location = useLocation();
 
   function getOrderInfo() {
     const localOrderItems = localStorage.getItem('orderItems');
+    const localTotalItemPrice = localStorage.getItem('totalItemPrice');
+    const localTotalShippingFee = localStorage.getItem('totalShippingFee');
     const localTotalPrice = localStorage.getItem('totalPrice');
 
     if (location.pathname === '/order') {
       setValues({
         orders: JSON.parse(localOrderItems) || [],
+        totalItemPrice: Number(localTotalItemPrice) || 0,
+        totalShippingFee: Number(localTotalShippingFee) || 0,
         totalPrice: Number(localTotalPrice) || 0,
       });
     }
   }
 
   function setOrderItems(nextItems) {
-    console.log('nextItem', nextItems);
     setValues(nextItems);
 
-    // 총 주문금액 계산
+    // 결제할 아이템 금액 계산
     let nextTotalPrice = 0;
+    let nextTotalItemPrice = 0;
+    let nextTotalShippingFee = 0;
 
     for (const item of nextItems) {
       const itemTotal = item.amount * item.price + item.shippingFee;
       nextTotalPrice += itemTotal;
+      nextTotalItemPrice += item.amount * item.price;
+      nextTotalShippingFee += item.shippingFee;
     }
 
     localStorage.setItem('orderItems', JSON.stringify(nextItems));
+    localStorage.setItem('totalItemPrice', nextTotalItemPrice.toString());
+    localStorage.setItem('totalShippingFee', nextTotalShippingFee.toString());
     localStorage.setItem('totalPrice', nextTotalPrice.toString());
   }
 
@@ -47,6 +63,8 @@ export function OrderItemProvider({ children }) {
     <OrderContext.Provider
       value={{
         orders: values.orders,
+        totalItemPrice: values.totalItemPrice,
+        totalShippingFee: values.totalShippingFee,
         totalPrice: values.totalPrice,
         setOrderItems: setOrderItems,
       }}

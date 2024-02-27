@@ -23,9 +23,10 @@ const INITIAL_VALUES = {
 
 function OrderPage() {
   // const items = mock;
-  const { orders, totalPrice } = useOrder();
+  const { orders, totalItemPrice, totalShippingFee, totalPrice } = useOrder();
   const [items, setItems] = useState([]);
   const [values, setValues] = useState(INITIAL_VALUES);
+  const [isChecked, setIsChecked] = useState(false);
   const [phone, setPhone] = useState(['', '', '']);
   const [address, setAddress] = useState({
     postal: '',
@@ -78,6 +79,10 @@ function OrderPage() {
     handleChangeValues('payment_method', value);
   };
 
+  const handleClickCheckBox = () => {
+    setIsChecked(!isChecked);
+  };
+
   useEffect(() => {
     setItems(orders || []);
   }, [orders]);
@@ -85,6 +90,10 @@ function OrderPage() {
   useEffect(() => {
     console.log(values);
   }, [values]);
+
+  useEffect(() => {
+    handleChangeValues('total_price', totalPrice);
+  }, []);
 
   return (
     <>
@@ -322,7 +331,10 @@ function OrderPage() {
                   <li>
                     <span className={styles['txt-title']}>총 상품금액</span>
                     <span className={styles['txt-cont']}>
-                      <strong className={styles['txt-num']}>45000</strong>원
+                      <strong className={styles['txt-num']}>
+                        {totalItemPrice}
+                      </strong>
+                      원
                     </span>
                   </li>
                   <li>
@@ -334,14 +346,20 @@ function OrderPage() {
                   <li className={styles.delivery}>
                     <span className={styles['txt-title']}>배송비</span>
                     <span className={styles['txt-cont']}>
-                      <strong className={styles['txt-num']}>5000</strong>원
+                      <strong className={styles['txt-num']}>
+                        {totalShippingFee}
+                      </strong>
+                      원
                     </span>
                   </li>
                   <HorizontalRule />
                   <li className={styles.total}>
                     <span className={styles['txt-title']}>최종 결제금액</span>
                     <span className={styles['txt-cont']}>
-                      <strong className={styles['txt-num']}>50000</strong>원
+                      <strong className={styles['txt-num']}>
+                        {totalPrice}
+                      </strong>
+                      원
                     </span>
                   </li>
                 </ul>
@@ -351,16 +369,21 @@ function OrderPage() {
                       type="checkbox"
                       id="agreeAll"
                       className="a11y-hidden"
+                      checked={isChecked}
                       readOnly
                     />
-                    <label htmlFor="agreeAll" className={styles['check-label']}>
+                    <label
+                      htmlFor="agreeAll"
+                      className={styles['check-label']}
+                      onClick={handleClickCheckBox}
+                    >
                       <p className={styles['agree-text']}>
                         주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
                       </p>
                     </label>
                   </div>
 
-                  <Button size="large" disabled>
+                  <Button size="large" disabled={!isChecked}>
                     결제하기
                   </Button>
                 </div>
