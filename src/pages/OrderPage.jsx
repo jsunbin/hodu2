@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthProvider';
 import { useOrder } from '../contexts/OrderItemProvider';
+import axios from '../lib/axios';
 import Mail from '../components/Mail';
 import OrderItem from '../components/OrderItem';
 import Button from '../components/Button';
@@ -23,7 +25,6 @@ const INITIAL_VALUES = {
 
 function OrderPage() {
   // const items = mock;
-  const { orders, totalItemPrice, totalShippingFee, totalPrice } = useOrder();
   const [items, setItems] = useState([]);
   const [values, setValues] = useState(INITIAL_VALUES);
   const [isChecked, setIsChecked] = useState(false);
@@ -33,6 +34,9 @@ function OrderPage() {
     address1: '',
     address2: '',
   });
+  const navigate = useNavigate();
+  const { token } = useAuth();
+  const { orders, totalItemPrice, totalShippingFee, totalPrice } = useOrder();
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type');
 
@@ -105,6 +109,28 @@ function OrderPage() {
     setIsChecked(!isChecked);
   };
 
+  const handleSubmit = async (event) => {
+    console.log('결제하기');
+    event.preventDefault();
+    if (!submitRequirements) return alert('필수정보를 모두 입력하세요');
+
+    try {
+      const res = await axios.post('/order/', values, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${token}`,
+        },
+      });
+
+      console.log(res);
+
+      const orderNumber = res.data['order_number'];
+      navigate(`/order/success/${orderNumber}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     setItems(orders || []);
   }, [orders]);
@@ -161,7 +187,7 @@ function OrderPage() {
           <strong>{totalPrice}원</strong>
         </div>
 
-        <form className={styles['order-form']}>
+        <form className={styles['order-form']} onSubmit={handleSubmit}>
           <h3 className={styles['sub-title']}>배송정보</h3>
           <HorizontalRule />
           <h4 className={styles['sub-title2']}>주문자 정보</h4>

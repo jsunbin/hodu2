@@ -13,6 +13,7 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import './styles/reset.css';
+import OrderSuccessPage from './pages/OrderSuccessPage';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <Route element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<ResisterPage />} />
+            <Route
+              path="order/success/:orderNumber"
+              element={<OrderSuccessPage />}
+            />
           </Route>
           <Route element={<SlideLayout />}>
             <Route index element={<HomePage />} />
