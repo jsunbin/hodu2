@@ -12,13 +12,13 @@ import mock from '../data/cartItemListMock.json';
 const INITIAL_VALUES = {
   product_id: 0,
   quantity: 0,
-  order_kind: 'direct_order',
+  total_price: 0,
+  order_kind: '',
   receiver: '',
   receiver_phone_number: '',
   address: '',
   address_message: '',
   payment_method: '',
-  total_price: 0,
 };
 
 function OrderPage() {
@@ -35,6 +35,28 @@ function OrderPage() {
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type');
+
+  const submitRequirements =
+    type !== 'cart'
+      ? values.product_id &&
+        values.quantity &&
+        values.total_price &&
+        values.receiver &&
+        values.receiver_phone_number &&
+        address.postal &&
+        address.address1 &&
+        address.address2 &&
+        address.postal &&
+        values.payment_method &&
+        isChecked
+      : values.total_price &&
+        values.receiver &&
+        values.receiver_phone_number &&
+        address.postal &&
+        address.address1 &&
+        address.address2 &&
+        values.payment_method &&
+        isChecked;
 
   const handleChangeValues = (name, value) => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
@@ -93,6 +115,16 @@ function OrderPage() {
 
   useEffect(() => {
     handleChangeValues('total_price', totalPrice);
+  }, [isChecked]);
+
+  useEffect(() => {
+    if (type === 'direct') {
+      handleChangeValues('order_kind', 'direct_order');
+    } else if (type === 'cart') {
+      handleChangeValues('order_kind', 'cart_order');
+    } else if (type === 'cart_one') {
+      handleChangeValues('order_kind', 'cart_one_order');
+    }
   }, []);
 
   return (
@@ -215,7 +247,7 @@ function OrderPage() {
                     id="postal"
                     name="postal"
                     value={address.postal}
-                    onClick={handleChangeAddress}
+                    onChange={handleChangeAddress}
                     appearance="number"
                   />
                   <Button size="sm" onClick={handlePostal}>
