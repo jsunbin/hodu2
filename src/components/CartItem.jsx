@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useModal } from '../contexts/ModalProvider';
+import { useOrder } from '../contexts/OrderItemProvider';
 import axios from '../lib/axios';
 import Amount from './Amount';
 import Button from './Button';
@@ -22,7 +23,23 @@ function CartItem({
   const [item, setItem] = useState({});
   const [isChecked, setIsChecked] = useState(checked);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const { modal } = useModal();
+  const { setOrderItems } = useOrder();
+
+  const handleOrderClick = (event) => {
+    setOrderItems([
+      {
+        productId,
+        amount: quantity,
+        price: item?.price,
+        shippingFee: item.shipping_fee === 0 ? '무료배송' : item.shipping_fee,
+      },
+    ]);
+
+    const query = `type=cart_one&product=${productId}`;
+    navigate(`/order?${query}`);
+  };
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
@@ -121,7 +138,9 @@ function CartItem({
 
           <div className={styles['product-name']}>
             <div className={styles.brand}>{item.store_name}</div>
-            <div className={styles.title}>{item.product_name}</div>
+            <div className={styles.title}>
+              <Link to={`/goods/${productId}`}>{item.product_name}</Link>
+            </div>
             <div className={styles.price}>{item.price}</div>
             <div className={styles.delivery}>
               {item.shipping_method} /{' '}
@@ -135,7 +154,9 @@ function CartItem({
 
           <div className={styles['product-total']}>
             <div className={styles.price}>{quantity * item?.price}원</div>
-            <Button size="sm">주문하기</Button>
+            <Button size="sm" onClick={handleOrderClick}>
+              주문하기
+            </Button>
           </div>
         </div>
         <div className={styles['btn-delete']}>

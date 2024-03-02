@@ -154,6 +154,8 @@ function OrderPage() {
       handleChangeValues('order_kind', 'cart_order');
     } else if (type === 'cart_one') {
       handleChangeValues('order_kind', 'cart_one_order');
+      handleChangeValues('product_id', product);
+      handleChangeValues('quantity', quantity);
     }
   }, [isChecked]);
 
