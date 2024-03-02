@@ -20,6 +20,7 @@ export function OrderItemProvider({ children }) {
 
   function getOrderInfo() {
     const localOrderItems = localStorage.getItem('orderItems');
+    const localQuantity = localStorage.getItem('quantity');
     const localTotalItemPrice = localStorage.getItem('totalItemPrice');
     const localTotalShippingFee = localStorage.getItem('totalShippingFee');
     const localTotalPrice = localStorage.getItem('totalPrice');
@@ -27,6 +28,7 @@ export function OrderItemProvider({ children }) {
     if (location.pathname === '/order') {
       setValues({
         orders: JSON.parse(localOrderItems) || [],
+        quantity: Number(localQuantity) || 0,
         totalItemPrice: Number(localTotalItemPrice) || 0,
         totalShippingFee: Number(localTotalShippingFee) || 0,
         totalPrice: Number(localTotalPrice) || 0,
@@ -39,17 +41,20 @@ export function OrderItemProvider({ children }) {
 
     // 결제할 아이템 금액 계산
     let nextTotalPrice = 0;
+    let nextQuantity = 0;
     let nextTotalItemPrice = 0;
     let nextTotalShippingFee = 0;
 
     for (const item of nextItems) {
       const itemTotal = item.amount * item.price + item.shippingFee;
       nextTotalPrice += itemTotal;
+      nextQuantity += item.amount;
       nextTotalItemPrice += item.amount * item.price;
       nextTotalShippingFee += item.shippingFee;
     }
 
     localStorage.setItem('orderItems', JSON.stringify(nextItems));
+    localStorage.setItem('quantity', nextQuantity.toString());
     localStorage.setItem('totalItemPrice', nextTotalItemPrice.toString());
     localStorage.setItem('totalShippingFee', nextTotalShippingFee.toString());
     localStorage.setItem('totalPrice', nextTotalPrice.toString());
@@ -63,6 +68,7 @@ export function OrderItemProvider({ children }) {
     <OrderContext.Provider
       value={{
         orders: values.orders,
+        quantity: values.quantity,
         totalItemPrice: values.totalItemPrice,
         totalShippingFee: values.totalShippingFee,
         totalPrice: values.totalPrice,

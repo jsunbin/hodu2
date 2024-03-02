@@ -36,9 +36,11 @@ function OrderPage() {
   });
   const navigate = useNavigate();
   const { token } = useAuth();
-  const { orders, totalItemPrice, totalShippingFee, totalPrice } = useOrder();
+  const { orders, quantity, totalItemPrice, totalShippingFee, totalPrice } =
+    useOrder();
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type');
+  const product = searchParams.get('product');
 
   const submitRequirements =
     type !== 'cart'
@@ -52,6 +54,7 @@ function OrderPage() {
         address.address2 &&
         address.postal &&
         values.payment_method &&
+        values.address_message &&
         isChecked
       : values.total_price &&
         values.receiver &&
@@ -60,6 +63,7 @@ function OrderPage() {
         address.address1 &&
         address.address2 &&
         values.payment_method &&
+        values.address_message &&
         isChecked;
 
   const handleChangeValues = (name, value) => {
@@ -141,17 +145,17 @@ function OrderPage() {
 
   useEffect(() => {
     handleChangeValues('total_price', totalPrice);
-  }, [isChecked]);
 
-  useEffect(() => {
     if (type === 'direct') {
       handleChangeValues('order_kind', 'direct_order');
+      handleChangeValues('product_id', product);
+      handleChangeValues('quantity', quantity);
     } else if (type === 'cart') {
       handleChangeValues('order_kind', 'cart_order');
     } else if (type === 'cart_one') {
       handleChangeValues('order_kind', 'cart_one_order');
     }
-  }, []);
+  }, [isChecked]);
 
   return (
     <>
