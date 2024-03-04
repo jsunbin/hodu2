@@ -5,7 +5,6 @@ import styles from './OrderItem.module.css';
 import mock583 from '../data/product583Mock.json';
 
 function OrderItem({ cartItemId, productId, quantity }) {
-  console.log(productId);
   // const item = mock583;
   const [item, setItem] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -15,8 +14,6 @@ function OrderItem({ cartItemId, productId, quantity }) {
       setIsLoading(true);
       const res = await axios.get(`/products/${productId}/`);
       const nextItem = res.data;
-
-      console.log(res);
 
       setItem(nextItem);
     } catch (error) {
