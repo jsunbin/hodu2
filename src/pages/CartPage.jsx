@@ -95,11 +95,21 @@ function CartPage() {
     }
   };
 
-  const updateCheckedItemsById = (productId, newPrice, newShippingFee) => {
+  const updateCheckedItemsById = (
+    productId,
+    quantity,
+    newPrice,
+    newShippingFee,
+  ) => {
     setCheckedItems((prevItems) => {
       return prevItems.map((item) => {
         if (item.productId === productId) {
-          return { ...item, price: newPrice, shippingFee: newShippingFee };
+          return {
+            ...item,
+            amount: quantity,
+            price: newPrice,
+            shippingFee: newShippingFee,
+          };
         }
         return item;
       });

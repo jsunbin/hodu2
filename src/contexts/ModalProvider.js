@@ -48,11 +48,14 @@ function ConfirmModal({ message, closeModal }) {
 }
 
 function Modal({ message, btnTxt, closeModal, onClick }) {
-  const { no, yes } = btnTxt;
+  const no = btnTxt?.no;
+  const yes = btnTxt?.yes;
+
   return (
     <div className={styles['modal-wrapper']}>
       <article className={styles.modal}>
-        <p className={styles['modal-txt']}>{message}</p>
+        <div className={styles['modal-txt']}>{message}</div>
+
         <div className={styles['btn-group']}>
           <Button
             size="sm"
@@ -66,7 +69,10 @@ function Modal({ message, btnTxt, closeModal, onClick }) {
             size="sm"
             appearance="extra"
             className={styles.button}
-            onClick={onClick}
+            onClick={() => {
+              onClick();
+              closeModal();
+            }}
           >
             {yes}
           </Button>

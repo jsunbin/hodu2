@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthProvider';
 import { useModal } from '../contexts/ModalProvider';
 import { useOrder } from '../contexts/OrderItemProvider';
 import axios from '../lib/axios';
@@ -21,17 +22,50 @@ function CartItem({
 }) {
   // const item = productId === 271 ? mock581 : mock583;
   const [item, setItem] = useState({});
+  const [amount, setAmount] = useState(quantity);
+  const [cartAmount, setCartAmount] = useState(amount);
   const [isChecked, setIsChecked] = useState(checked);
+  const [isChanged, setIsChanged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { token } = useAuth();
   const { modal } = useModal();
   const { setOrderItems } = useOrder();
 
+  const handleChangeClick = (event) => {
+    event.preventDefault();
+
+    try {
+      const res = axios.put(
+        `/cart/${cartItemId}/`,
+        {
+          product_id: productId,
+          quantity: amount,
+          is_active: true,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCartAmount(amount);
+      setIsChanged(false);
+    }
+  };
+
   const handleOrderClick = (event) => {
+    event.preventDefault();
     setOrderItems([
       {
         productId,
-        amount: quantity,
+        amount: cartAmount,
         price: item?.price,
         shippingFee: item.shipping_fee === 0 ? '무료배송' : item.shipping_fee,
       },
@@ -43,10 +77,11 @@ function CartItem({
 
   const handleCheckBoxClick = (event) => {
     event.preventDefault();
+
     handleCheck(
       {
         productId,
-        quantity,
+        quantity: cartAmount,
         price: item?.price,
         shippingFee: item?.shipping_fee,
       },
@@ -89,9 +124,9 @@ function CartItem({
   useEffect(() => {
     // 체크 되어 잇을 때만!
     if (checked) {
-      handleChange(productId, item?.price, item?.shipping_fee);
+      handleChange(productId, cartAmount, item?.price, item?.shipping_fee);
     }
-  }, [allChecked, checked]);
+  }, [allChecked, checked, cartAmount]);
 
   return (
     !isLoading && (
@@ -149,7 +184,22 @@ function CartItem({
           </div>
 
           <div className={styles['product-amount']}>
-            <Amount amount={quantity} max={item.stock} />
+            <Amount
+              amount={amount}
+              setAmount={setAmount}
+              max={item.stock}
+              setIsChanged={setIsChanged}
+            />
+
+            {isChanged && (
+              <Button
+                className={styles['change-button']}
+                size="sm"
+                onClick={handleChangeClick}
+              >
+                수정하기
+              </Button>
+            )}
           </div>
 
           <div className={styles['product-total']}>
