@@ -158,23 +158,31 @@ function ProductDetailsPage() {
             </div>
 
             <div className={styles.buttons}>
-              <Button
-                className="button"
-                size="mid"
-                onClick={handleOrderNowClick}
-                style={{ width: 416 + 'px' }}
-              >
-                바로구매
-              </Button>
-              <Button
-                className="button"
-                size="mid"
-                appearance="dark"
-                onClick={handleCartClick}
-                style={{ width: 200 + 'px' }}
-              >
-                장바구니
-              </Button>
+              {item.stock !== 0 ? (
+                <>
+                  <Button
+                    className="button"
+                    size="mid"
+                    onClick={handleOrderNowClick}
+                    style={{ width: 416 + 'px' }}
+                  >
+                    바로구매
+                  </Button>
+                  <Button
+                    className="button"
+                    size="mid"
+                    appearance="dark"
+                    onClick={handleCartClick}
+                    style={{ width: 200 + 'px' }}
+                  >
+                    장바구니
+                  </Button>
+                </>
+              ) : (
+                <Button size="large" appearance="extra" disabled>
+                  품절
+                </Button>
+              )}
             </div>
           </div>
         </section>
