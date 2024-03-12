@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+  position: relative;
 }
 
 .start {
@@ -61,6 +62,7 @@
   line-height: 14px;
   text-align: center;
   background: transparent;
+  cursor: pointer;
 }
 .menu:before {
   content: '';
@@ -81,4 +83,56 @@
 .menu.user,
 .menu.login {
   background: url('../assets/icon-user.svg') top no-repeat;
+}
+.menu.user.active {
+  color: #21bf48;
+  background: url('../assets/icon-user-2.svg') top no-repeat;
+}
+
+.my-page {
+  width: 130px;
+  height: 118px;
+  border-radius: 4px 4px 4px 4px;
+  position: absolute;
+  right: -35px;
+  bottom: -120%;
+  z-index: 10;
+}
+
+.my-page .arrow {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url('../assets/polygon-4.svg') top no-repeat;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+}
+
+.my-page .list {
+  width: 100%;
+  height: calc(100% - 15px);
+  color: #767676;
+  font-size: 16px;
+  font-weight: 500;
+  background: #ffffff;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 10px 10px 0;
+  position: absolute;
+  top: 10px;
+  z-index: 20;
+}
+.my-page .list li {
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+.my-page .list li:hover {
+  color: #000000;
+  border: 1px #767676 solid;
+  border-radius: 5px;
 }

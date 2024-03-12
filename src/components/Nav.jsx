@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import Label from './Label';
 import LogoImg from '../assets/Logo-hodu.svg';
 import styles from './Nav.module.css';
 
+function MyPage() {
+  return (
+    <div className={styles['my-page']}>
+      <div className={styles.arrow}></div>
+
+      <ul className={styles.list}>
+        <li>
+          <span>마이페이지</span>
+        </li>
+        <li>
+          <span>로그아웃</span>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
 function Nav() {
+  const [isUserOpen, setIsUserOpen] = useState(false);
   const { token } = useAuth();
   const location = useLocation();
-
   const cart = location.pathname === '/cart';
-  const user = false;
+
+  const handleMyPageClick = () => {
+    setIsUserOpen((prevState) => !prevState);
+  };
 
   return (
     <header className={styles.container}>
@@ -62,14 +82,15 @@ function Nav() {
               >
                 장바구니
               </Link>
-              <Link
-                to="/#"
+              <button
                 className={`${styles.menu} ${styles.user} ${
-                  user ? styles.active : ''
+                  isUserOpen ? styles.active : ''
                 }`}
+                onClick={handleMyPageClick}
               >
                 마이페이지
-              </Link>
+              </button>
+              {isUserOpen && <MyPage />}
             </>
           ) : (
             <>
