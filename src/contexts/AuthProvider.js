@@ -1,6 +1,6 @@
 import axios from '../lib/axios';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext({
   user: null,
@@ -82,6 +82,10 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     /** @TODO 로그아웃 */
+    const res = await axios.post('/accounts/logout/');
+    console.log('로그아웃,', res);
+    localStorage.clear();
+    validateToken();
   };
 
   useEffect(() => {

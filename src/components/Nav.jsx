@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import Label from './Label';
 import LogoImg from '../assets/Logo-hodu.svg';
 import styles from './Nav.module.css';
 
-function MyPage() {
+function MyPage({ onClick }) {
+  const handleLogoutClick = () => {
+    onClick();
+  };
   return (
     <div className={styles['my-page']}>
       <div className={styles.arrow}></div>
@@ -15,7 +18,7 @@ function MyPage() {
           <span>마이페이지</span>
         </li>
         <li>
-          <span>로그아웃</span>
+          <span onClick={handleLogoutClick}>로그아웃</span>
         </li>
       </ul>
     </div>
@@ -24,12 +27,18 @@ function MyPage() {
 
 function Nav() {
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const { token } = useAuth();
+  const navigate = useNavigate();
+  const { token, logout } = useAuth();
   const location = useLocation();
   const cart = location.pathname === '/cart';
 
   const handleMyPageClick = () => {
     setIsUserOpen((prevState) => !prevState);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/#');
   };
 
   return (
@@ -90,7 +99,7 @@ function Nav() {
               >
                 마이페이지
               </button>
-              {isUserOpen && <MyPage />}
+              {isUserOpen && <MyPage onClick={handleLogout} />}
             </>
           ) : (
             <>
