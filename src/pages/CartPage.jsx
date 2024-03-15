@@ -26,8 +26,16 @@ function CartPage() {
     event.preventDefault();
     setOrderItems(checkedItems);
 
-    const query = `type=cart`;
-    navigate(`/order?${query}`);
+    if (checkedItems.length === 0) {
+      modal({
+        isOpen: true,
+        type: 'confirm',
+        message: '구매할 상품을 선택하세요.',
+      });
+    } else {
+      const query = `type=cart`;
+      navigate(`/order?${query}`);
+    }
   };
 
   const getCartItems = async () => {
