@@ -97,7 +97,9 @@
 .input-table tr {
   display: table-row;
 }
-
+.input-table th {
+  width: 170px;
+}
 .input-table td {
   display: table-cell;
   text-align: left;
