@@ -8,12 +8,13 @@ import {
 } from './components/Layout';
 import LoginPage from './pages/LoginPage';
 import ResisterPage from './pages/ResisterPage';
+import OrderSuccessPage from './pages/OrderSuccessPage';
 import HomePage from './pages/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
+import SearchPage from './pages/SearchPage';
 import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import './styles/reset.css';
-import OrderSuccessPage from './pages/OrderSuccessPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/goods/:productId" element={<ProductDetailsPage />} />
           </Route>
           <Route element={<WrapLayout />}>
+            <Route path="search" element={<SearchPage />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="order" element={<OrderPage />} />
           </Route>

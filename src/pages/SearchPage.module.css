@@ -1,0 +1,42 @@
+/* 페이지 제목 */
+.search-title {
+  text-align: left;
+  color: #000000;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 44px;
+  margin: 54px 0 17px;
+}
+.search-title strong {
+  color: #21bf48;
+  font-size: 36px;
+  font-weight: 700;
+}
+.search-title span {
+  color: #eb5757;
+}
+
+/* 검색 결과 상세 텍스트 */
+.info-txt {
+  font-size: 20px;
+  color: #222222;
+  text-align: left;
+  margin: 17px 0 34px;
+}
+
+/* 검색 결과 아이템 리스트 영역 */
+.section {
+  width: 100%;
+  text-align: left;
+  margin: 50px 0 180px;
+}
+
+/* 아이템 리스트 */
+.items {
+  display: grid;
+  max-width: 1280px;
+  grid-template-columns: repeat(3, minmax(380px, 1fr));
+  gap: 78px 70px;
+  grid-gap: 78px 80px;
+  margin: 0 auto;
+}
