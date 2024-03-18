@@ -49,7 +49,7 @@ function Nav() {
   const handleSearchClick = (event) => {
     event.preventDefault();
 
-    if (searchValue !== '') {
+    if (searchValue && searchValue !== '') {
       navigate(`/search?query=${searchValue}`);
     }
   };

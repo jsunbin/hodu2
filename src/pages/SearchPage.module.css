@@ -40,3 +40,56 @@
   grid-gap: 78px 80px;
   margin: 0 auto;
 }
+
+/* 검색 결과 없을 때 */
+.search-no-data > p {
+  color: #333333;
+  font-size: 20px;
+  text-align: center;
+  line-height: 24px;
+  background: url('../assets/icon-caution.svg') center no-repeat;
+  padding-top: 160px;
+  margin-top: 50px;
+}
+.search-no-data p strong {
+  color: #21bf48;
+}
+
+.search-guide {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: #f2f2f2;
+  padding: 20px 0;
+  margin: 50px 0 10px;
+}
+.search-guide p {
+  width: 50%;
+  display: block;
+  color: #333333;
+  font-size: 18px;
+  position: relative;
+}
+.search-guide p:before {
+  display: block;
+  content: '';
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: -6px;
+  left: 30%;
+  background: url('../assets/icon-search.svg') center no-repeat;
+}
+.search-guide ul {
+  width: 50%;
+}
+.search-guide ul li {
+  color: #767676;
+  font-size: 13px;
+  text-align: left;
+  list-style: inside;
+  padding-left: 8px;
+  margin: 6px 0 0;
+}
