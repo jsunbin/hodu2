@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import Label from './Label';
 import LogoImg from '../assets/Logo-hodu.svg';
@@ -26,11 +31,28 @@ function MyPage({ onClick }) {
 }
 
 function Nav() {
+  const [searchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState('');
   const [isUserOpen, setIsUserOpen] = useState(false);
   const navigate = useNavigate();
   const { token, logout } = useAuth();
   const location = useLocation();
   const cart = location.pathname === '/cart';
+
+  const handleChange = (event) => {
+    event.preventDefault();
+
+    const { value } = event.target;
+    setSearchValue(value);
+  };
+
+  const handleSearchClick = (event) => {
+    event.preventDefault();
+
+    if (searchValue !== '') {
+      navigate(`/search?query=${searchValue}`);
+    }
+  };
 
   const handleMyPageClick = () => {
     setIsUserOpen((prevState) => !prevState);
@@ -40,6 +62,11 @@ function Nav() {
     logout();
     navigate('/#');
   };
+
+  useEffect(() => {
+    const initQuery = searchParams.get('query');
+    setSearchValue(initQuery);
+  }, [searchParams]);
 
   return (
     <header className={styles.container}>
@@ -52,8 +79,19 @@ function Nav() {
             <Label className="a11y-hidden" htmlFor="search">
               상품 검색
             </Label>
-            <input id="search" type="text" placeholder="상품을 검색해보세요!" />
-            <button className="btn-search" type="submit">
+            <input
+              id="search"
+              value={searchValue}
+              type="text"
+              placeholder="상품을 검색해보세요!"
+              autoComplete="off"
+              onChange={handleChange}
+            />
+            <button
+              className="btn-search"
+              type="submit"
+              onClick={handleSearchClick}
+            >
               <svg
                 width="28"
                 height="28"
