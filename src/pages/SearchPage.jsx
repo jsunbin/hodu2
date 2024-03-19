@@ -49,6 +49,7 @@ function SearchPage() {
     search();
     return () => {
       setItems([]);
+      setCount(0);
     };
   }, [keyword]);
 
