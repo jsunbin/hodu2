@@ -6,9 +6,18 @@
   text-decoration: underline;
 }
 
+.card.small {
+  width: 200px;
+  height: 300px;
+}
+
 .thumbnail {
   width: 380px;
   height: 380px;
+}
+.thumbnail.small {
+  width: 200px;
+  height: 200px;
 }
 .thumbnail img {
   width: 100%;
@@ -27,6 +36,10 @@
   gap: 10px;
   margin-top: 16px;
 }
+.info.small {
+  gap: 8px;
+  margin-top: 10px;
+}
 .seller {
   display: block;
   color: #767676;
@@ -34,9 +47,18 @@
   font-weight: 400;
   line-height: 22px;
 }
+.seller.small {
+  font-size: 14px;
+  line-height: 18px;
+}
 .title {
   color: #000000;
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
+}
+.title.small {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
 }

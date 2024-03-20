@@ -3,7 +3,10 @@
   line-height: normal;
   font-weight: 700;
 }
-.price.mid {
+.price.small {
+  font-size: 20px;
+}
+.price.regular {
   font-size: 24px;
 }
 .price.large {

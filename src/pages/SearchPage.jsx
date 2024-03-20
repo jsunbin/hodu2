@@ -10,6 +10,7 @@ function SearchPage() {
   const [keyword, setKeyword] = useState(null);
   const [count, setCount] = useState(0);
   const [items, setItems] = useState([]);
+  const [suggestItems, setSuggestItems] = useState([]);
   const [endpoint, setEndpoint] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +41,17 @@ function SearchPage() {
     }
   };
 
+  const getItems = async () => {
+    try {
+      const res = await axios.get(`/products/`);
+      const nextItems = res.data.results;
+
+      setSuggestItems(nextItems);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const initKeyword = searchParams.get('query');
     setKeyword(initKeyword);
@@ -53,6 +65,10 @@ function SearchPage() {
     };
   }, [keyword]);
 
+  useEffect(() => {
+    getItems();
+  }, []);
+
   return (
     <>
       <h2 className={styles['search-title']}>
@@ -61,7 +77,7 @@ function SearchPage() {
       </h2>
       {!isLoading &&
         (items.length !== 0 ? (
-          <div>
+          <div className={styles['search-results']}>
             <p className={styles['info-txt']}>
               전체 <span>{count}개의 상품이 등록되어 있습니다.</span>
             </p>
@@ -100,6 +116,30 @@ function SearchPage() {
                 </li>
                 <li>검색어의 띄어쓰기를 다르게 해보세요.</li>
               </ul>
+            </div>
+            <HorizontalRule />
+            <div className={styles.suggestion}>
+              <h4 className={styles['suggestion-title']}>
+                이런 상품을 찾으시나요?
+              </h4>
+              <section className={styles.section}>
+                <ul className={styles.items}>
+                  {suggestItems.map((item) => {
+                    return (
+                      <li key={item.product_id}>
+                        <Card
+                          productId={item.product_id}
+                          title={item.product_name}
+                          price={item.price}
+                          image={item.image}
+                          seller={item.store_name}
+                          size="small"
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
             </div>
           </div>
         ))}
