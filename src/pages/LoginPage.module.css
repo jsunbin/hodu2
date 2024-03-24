@@ -57,6 +57,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 26px;
   width: 550px;
   min-height: 292px;
   border-radius: 10px;
@@ -71,4 +72,12 @@
 .label {
   display: block;
   width: 100%;
+}
+
+/* 로그인 오류 메시지 */
+.login-warning {
+  display: block;
+  color: #eb5757;
+  font-size: 16px;
+  font-weight: 500;
 }

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './Input.module.css';
 
-function Input({ className = '', appearance = 'primary', children, ...rest }) {
-  return (
-    <input
-      className={`${styles.input} ${styles[appearance]} ${className}`}
-      {...rest}
-    >
-      {children}
-    </input>
-  );
-}
+const Input = forwardRef(
+  ({ className = '', appearance = 'primary', children, ...rest }, ref) => {
+    return (
+      <input
+        className={`${styles.input} ${styles[appearance]} ${className}`}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+      </input>
+    );
+  },
+);
 
 export default Input;

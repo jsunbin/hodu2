@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import Label from '../components/Label.jsx';
@@ -12,8 +12,10 @@ function LoginPage() {
     id: '',
     password: '',
   });
+  const ref = useRef();
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { token, login } = useAuth();
+  const { token, errorMessage, login } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type') || 'BUYER';
 
@@ -34,11 +36,49 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { id, password } = values;
-    login({ id, password, type });
+    setError('');
 
-    navigate('/#');
+    const { id, password } = values;
+
+    console.log(id, password);
+
+    if (!id) {
+      setError('아이디를 입력해주세요.');
+      console.log('id');
+    } else if (!password) {
+      setError('비밀번호를 입력해주세요.');
+      console.log('pa');
+    } else {
+      console.log('로그인');
+      try {
+        const response = login({ id, password, type });
+
+        const getData = () => {
+          response.then((data) => {
+            console.log(data);
+            setError(data);
+          });
+        };
+
+        getData();
+        console.log('여기봐봐봐봐', response.Promise);
+        console.log(response);
+        setError(errorMessage);
+        console.log(errorMessage);
+      } catch (error) {
+        console.error(error);
+      }
+      // navigate('/#');
+    }
   };
+
+  useEffect(() => {
+    console.log('rrrdrrr', error);
+
+    return () => {
+      // setError('');
+    };
+  }, [error]);
 
   useEffect(() => {
     if (token) {
@@ -85,6 +125,7 @@ function LoginPage() {
             value={values.id}
             onChange={handleChange}
             page="login"
+            ref={ref}
           />
 
           <Label className="a11y-hidden" htmlFor="password">
@@ -101,6 +142,14 @@ function LoginPage() {
             onChange={handleChange}
             page="login"
           />
+
+          <strong
+            className={styles['login-warning']}
+            style={!error ? { display: 'none' } : {}}
+          >
+            {error}
+          </strong>
+
           <Button className="button" size="mid">
             로그인
           </Button>

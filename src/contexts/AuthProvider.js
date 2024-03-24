@@ -6,6 +6,7 @@ const AuthContext = createContext({
   user: null,
   token: null,
   userType: null,
+  errorMessage: null,
   isPending: true,
   login: () => {},
   logout: () => {},
@@ -16,6 +17,7 @@ export function AuthProvider({ children }) {
     token: null,
     userType: null,
     isPending: true,
+    errorMessage: null,
   });
   const location = useLocation();
 
@@ -34,6 +36,7 @@ export function AuthProvider({ children }) {
         token: null,
         userType: null,
         isPending: true,
+        errorMessage: null,
       });
 
       return;
@@ -57,27 +60,43 @@ export function AuthProvider({ children }) {
         token: nextToken,
         userType: nextUserType,
         isPending: false,
+        errorMessage: null,
       }));
     }
   };
 
   const login = async ({ id, password, type }) => {
-    const res = await axios.post('/accounts/login/', {
-      username: id,
-      password,
-      login_type: type,
-    });
+    let failMessage;
+    try {
+      const res = await axios.post('/accounts/login/', {
+        username: id,
+        password,
+        login_type: type,
+      });
 
-    const nextUser = res.data;
-    setValues((prevValues) => ({
-      ...prevValues,
-      user: nextUser,
-      token: nextUser.token,
-      userType: nextUser.user_type,
-    }));
+      const nextUser = res.data;
+      setValues((prevValues) => ({
+        ...prevValues,
+        user: nextUser,
+        token: nextUser.token,
+        userType: nextUser.user_type,
+      }));
 
-    localStorage.setItem('token', nextUser.token);
-    localStorage.setItem('user_type', nextUser.user_type);
+      localStorage.setItem('token', nextUser.token);
+      localStorage.setItem('user_type', nextUser.user_type);
+
+      failMessage = 'hi';
+    } catch (error) {
+      console.log('error');
+      setValues((prevValues) => ({
+        ...prevValues,
+        errorMessage: error.response.data['FAIL_Message'],
+      }));
+      console.log(error.response.data);
+      failMessage = error.response.data['FAIL_Message'];
+    } finally {
+      return failMessage;
+    }
   };
 
   const logout = async () => {
@@ -98,6 +117,7 @@ export function AuthProvider({ children }) {
         user: values.user,
         token: values.token,
         userType: values.login_type,
+        errorMessage: values.errorMessage,
         isPending: values.isPending,
         login,
         logout,
